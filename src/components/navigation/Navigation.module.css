@@ -1,5 +1,7 @@
 .navigation-container {
+  max-width: 2560px;
   padding: 30px;
+
   display: flex;
   justify-content: space-between;
 }
@@ -30,4 +32,13 @@
   position: absolute;
   top: -30px;
   right: -15px;
+}
+
+@media (max-width: 1440px) {
+  .navigation-container {
+    padding-top: 20px;
+    padding-bottom: 0px;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
 }
