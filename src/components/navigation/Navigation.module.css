@@ -1,0 +1,33 @@
+.navigation-container {
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.navigation-container div:last-child {
+  position: relative;
+  /* background-color: green; */
+}
+
+.logo {
+  color: gray;
+  font-size: 16px;
+}
+
+.cart-logo {
+  font-size: 18px;
+}
+
+.item-count {
+  background-color: red;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  text-align: center;
+  padding: 2px;
+  font-size: 12px;
+  color: white;
+  position: absolute;
+  top: -30px;
+  right: -15px;
+}
