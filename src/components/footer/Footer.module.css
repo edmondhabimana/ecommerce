@@ -1,0 +1,12 @@
+.footer-container {
+  margin-top: 90px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: 600;
+  min-width: 320px;
+}
+
+.footer-container div .icons {
+  margin: 10px;
+  font-size: 24px;
+}
