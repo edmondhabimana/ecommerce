@@ -1,0 +1,178 @@
+.footer-banner {
+  background-color: #f02d34;
+  color: white;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 80px;
+  padding-bottom: 40px;
+  margin-top: 140px;
+  border-radius: 15px;
+  margin-left: 20px;
+  margin-right: 20px;
+  position: relative;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.headphones {
+  width: 600px;
+  /* height: 700px; */
+  position: absolute;
+  margin-top: -300px;
+  margin-right: -300px;
+  right: 50%;
+  top: 50%;
+}
+
+.container-1 p:nth-child(2) {
+  margin-bottom: -30px;
+}
+
+.container-1 p:nth-child(2),
+.container-1 p:nth-child(3){
+  font-size: 80px;
+  font-weight: 800;
+  /* background-color: green; */
+}
+
+.container-1 p:nth-child(1),
+.container-1 p:nth-child(4) {
+  font-size: 18px;
+}
+
+.container-2 p:nth-child(2){
+  font-size: 80px;
+  font-weight: 800;
+}
+
+.container-2 p:nth-child(1),
+.container-2 p:nth-child(3) {
+  font-size: 18px;
+}
+
+.container-2 button {
+  padding: 8px 20px;
+  font-size: 20px;
+  color: #f02d34;
+  margin-top: 40px;
+  border: none;
+  border-radius: 15px;
+
+}
+
+@media (max-width: 1440px) {
+  .headphones {
+    width: 600px;
+    margin-top: -300px;
+    margin-right: -150px;
+    right: 50%;
+    top: 50%;
+  }
+}
+
+@media (max-width: 1100px) {
+  .headphones {
+    width: 500px;
+    margin-top: -250px;
+    margin-right: -150px;
+  }
+
+  .container-1 p:nth-child(2),
+  .container-1 p:nth-child(3){
+    font-size: 60px;
+  }
+
+  .container-2 p:nth-child(2){
+    font-size: 60px;
+  }
+}
+
+@media (max-width: 840px) {
+  .headphones {
+    width: 400px;
+    margin-top: -200px;
+    margin-right: -120px;
+  }
+
+  .container-1 p:nth-child(2) {
+    margin-bottom: -15px;
+  }
+
+  .container-1 p:nth-child(2),
+  .container-1 p:nth-child(3){
+    font-size: 40px;
+  }
+
+  .container-2 p:nth-child(2){
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .footer-banner {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    margin-top: 50px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .headphones {
+    width: 280px;
+    margin-top: -130px;
+    margin-right: -100px;
+  }
+
+  .container-1 p:nth-child(1),
+  .container-1 p:nth-child(4) {
+    font-size: 11px;
+  }
+
+  .container-1 p:nth-child(2) {
+    margin-bottom: -10px;
+  }
+
+  .container-1 p:nth-child(2),
+  .container-1 p:nth-child(3){
+    font-size: 25px;
+  }
+
+  .container-2 p:nth-child(2){
+    font-size: 25px;
+  }
+
+  .container-2 button {
+    padding: 3px 12px;
+    font-size: 11px;
+    margin-top: 15px;
+  }
+
+  .container-2 p:nth-child(1),
+  .container-2 p:nth-child(3) {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 425px) {
+  .footer-banner {
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .container-1 {
+    align-self: flex-start;
+  }
+
+  .headphones {
+    width: 220px;
+    margin-top: -180px;
+    margin-right: -150px;
+  }
+}
