@@ -1,0 +1,38 @@
+.product-container {
+  transition: all .4s ease-in-out;
+}
+
+.product-container:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.product {
+  width: 250px;
+  background-color: #dedede;
+  border-radius: 15px;
+}
+
+.name {
+  color: #324d67;
+}
+
+.price {
+  font-weight: 800;
+}
+
+@media (max-width: 770px) {
+  .product {
+    width: 180px;
+  }
+}
+
+@media (max-width: 415px) {
+  .product {
+    width: 100px;
+  }
+
+  .name {
+    font-size: 10px;
+  }
+}
