@@ -1,8 +1,7 @@
-import Navigation from "../components/navigation/Navigation"
 import Header from "../components/header/Header"
 import Products from "../components/products/Products"
 import FooterBanner from "../components/footerBanner/FooterBanner"
-import Footer from "../components/footer/Footer"
+import SideBar from "../components/sideBar/SideBar"
 
 export default function MainPage() {
 
@@ -11,6 +10,7 @@ export default function MainPage() {
       <Header/>
       <Products/>
       <FooterBanner/>
+      <SideBar/>
     </div>
   )
 }

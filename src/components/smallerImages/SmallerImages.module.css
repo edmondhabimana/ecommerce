@@ -1,0 +1,12 @@
+.smaller-images {
+  background-color: #dedede;
+  margin-right: 8px;
+  width: auto;
+  height: 80px;
+  border-radius: 15px;
+}
+
+.smaller-images:hover {
+  background-color: #f02d34;
+  cursor: pointer;
+}

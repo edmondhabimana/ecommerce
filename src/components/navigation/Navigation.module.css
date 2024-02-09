@@ -16,12 +16,22 @@
   font-size: 16px;
 }
 
+.link {
+  text-decoration: none;
+}
+
+.link:visited {
+  color: gray;
+}
+
 .cart-logo {
   font-size: 18px;
+  cursor: pointer;
 }
 
 .item-count {
   background-color: red;
+  cursor: pointer;
   width: 20px;
   height: 20px;
   border-radius: 50%;

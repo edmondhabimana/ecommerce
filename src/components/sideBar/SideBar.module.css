@@ -1,0 +1,65 @@
+.cart{
+  background-color: white;
+  width: 45%;
+  height: 100vh;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+.item-count {
+  margin-top: 30px;
+  margin-left: 25px;
+  
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.arrow {
+  cursor: pointer;
+}
+
+.item-count p:last-child {
+  color: red;
+}
+
+.items {
+  height: 75vh;
+  overflow: scroll;
+}
+
+.total {
+  padding: 10px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.total div:first-child {
+  font-size: 18px;
+  font-weight: 700;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.total button {
+  background-color: red;
+  color: white;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+}
+
+.transparent {
+  background-color: rgb(12, 12, 12);
+  opacity: .5;
+  width: 55%;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+}

@@ -1,98 +1,127 @@
-import data from "../../data"
+// import data from "../../data"
 import productDetailStyles from './productDetail.module.css'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faMinus, faPlus } from "@fortawesome/pro-light-svg-icons"
+import SmallerImages from '../smallerImages/SmallerImages'
+import Recommanded from '../recommended/Recommended'
+import SideBar from '../sideBar/SideBar'
+import Button from '../button/button'
+import { useState, useEffect  } from 'react'
+import { useParams } from "react-router-dom"
+import { useDocument } from "../../hooks/useDocument"
+import { useCollection } from '../../hooks/useCollection'
+import { useCart } from '../../hooks/useCart'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck } from '@fortawesome/pro-regular-svg-icons'
 
 export default function ProductDetail() {
-  const [image1, image2, image3, image4] = data[0].products
-  const name = data[0].name
-  const detail = data[0].details
-  const price = data[0].price
-  const quantity = data[0].quantity
+  const [selectedId, setSelectedId] = useState(0)
+  const [itemCount, setItemCount] = useState(1)
+
+  const { productName } = useParams()
+  const { data } = useDocument(productName)
+  const { collection } = useCollection('products')
+  const { addToCart, successMessage, setSuccessMessage } = useCart()
+  const { details, images, name, price } = data
+  
+
+  function displayImage(index){
+    setSelectedId(index !== selectedId ? index : selectedId)
+    // console.log(selectedId);
+  }
+
+  function increaseQuantity() {
+    setItemCount((itemCount) => itemCount + 1)
+  }
+
+  function decreaseQuantity() {
+    if(itemCount == 1) return
+    setItemCount((itemCount) => itemCount - 1)
+  }
+
+  function handleAddToCart() {
+    // console.log(cart);
+    addToCart({
+      image: images[0],
+      name,
+      unitPrice: price,
+      totalPrice: price * itemCount,
+      quantity: itemCount
+    })
+
+    setItemCount(1)
+  }
+
+  useEffect(() => {
+    const timerRef = setInterval(() => {
+      setSuccessMessage((curr) => curr.slice(0, curr.length - 1))
+    }, 1200)
+    return () => clearInterval(timerRef)
+
+  }, [setSuccessMessage])
 
   return(
-    <div>
-      <div className={productDetailStyles.body}>
-        <div className={productDetailStyles['images-container']}>
-          <div>
-            <img src={image1} alt='Stereo' className={productDetailStyles['main-image']}/>
+    <>
+      {data.length !== 0 && collection.length !== 0 &&
+        <div>
+          <div className={productDetailStyles.absolute}>
+            {successMessage.map((suc, index) => (
+              <div key={index} className={productDetailStyles['success-message']}>
+                <div className={productDetailStyles['check-container']}><FontAwesomeIcon icon={faCheck} /></div>
+                <p>{suc}</p>
+              </div>
+            ))}
           </div>
-          <div>
-            <img src={image1} alt='Stereo' className={productDetailStyles['smaller-images']}/>
-            <img src={image2} alt='Stereo' className={productDetailStyles['smaller-images']}/>
-            <img src={image3} alt='Stereo' className={productDetailStyles['smaller-images']}/>
-            <img src={image4} alt='Stereo' className={productDetailStyles['smaller-images']}/>
+
+          <div className={productDetailStyles.body}>
+            <div className={productDetailStyles['images-container']}>
+              <div>
+                <img src={images[selectedId]} alt='Stereo' className={productDetailStyles['main-image']}/>
+              </div>
+              <div>
+                {images.map((productImage, index) => (
+                  <SmallerImages 
+                    key={index} 
+                    productImage={productImage}
+                    index={index}
+                    displayImage={displayImage}
+                  />
+                ))}
+              </div>
+            </div>
+            <div className={productDetailStyles['info-container']}>
+              <div className={productDetailStyles.info}>
+                <p>{name}</p>
+                <p>Details: </p>
+                <p>{details}</p>
+                <p>${price}</p>
+                <div className={productDetailStyles.quantity}>Quantity:
+                  <Button
+                    quantity={itemCount}
+                    decreaseQuantity={decreaseQuantity}
+                    increaseQuantity={increaseQuantity}
+                  />
+                </div>
+              </div>
+              <div className={productDetailStyles.buttons}>
+                <button 
+                  className={productDetailStyles['white-button']}
+                  onClick={() => handleAddToCart()}
+                >Add to Cart</button>
+                <button className={productDetailStyles['red-button']}>Buy Now</button>
+              </div>
+            </div>
           </div>
+          <div className={productDetailStyles.recommand}>
+            <p>You may also like</p>
+            <div className={productDetailStyles['animation-div']}>
+              {collection.map((collectionItem, index) => (
+                <Recommanded key={index} collectionItem={collectionItem}/>
+              ))}
+            </div>
+          </div>
+          <SideBar/>
         </div>
-        <div className={productDetailStyles['info-container']}>
-          <div className={productDetailStyles.info}>
-            <p>{name}</p>
-            <p>Details: </p>
-            <p>{detail}</p>
-            <p>${price}</p>
-            <p>Quantity: 
-              <button className={productDetailStyles.minus}>
-                <FontAwesomeIcon icon={faMinus} />
-              </button>
-              <span>
-                {quantity}
-              </span>
-              <button className={productDetailStyles.plus}>
-                <FontAwesomeIcon icon={faPlus} />
-              </button>
-            </p>
-          </div>
-          <div className={productDetailStyles.buttons}>
-            <button className={productDetailStyles['white-button']}>Add to Cart</button>
-            <button className={productDetailStyles['red-button']}>Buy Now</button>
-          </div>
-        </div>
-      </div>
-      <div className={productDetailStyles.recommand}>
-        <p>You may also like</p>
-        <div className={productDetailStyles['animation-div']}>
-          <div>
-            <img src={data[0].products[0]} alt='recommanded product' className={productDetailStyles['recommand-image']}/>
-            <p>{data[0].name}</p>
-            <p>${data[0].price}</p>
-          </div>
-          <div>
-            <img src={data[1].products[0]} alt='recommanded product' className={productDetailStyles['recommand-image']}/>
-            <p>{data[1].name}</p>
-            <p>${data[1].price}</p>
-          </div>
-          <div>
-            <img src={data[2].products[0]} alt='recommanded product' className={productDetailStyles['recommand-image']}/>
-            <p>{data[2].name}</p>
-            <p>${data[2].price}</p>
-          </div>
-          <div>
-            <img src={data[3].products[0]} alt='recommanded product' className={productDetailStyles['recommand-image']}/>
-            <p>{data[3].name}</p>
-            <p>${data[3].price}</p>
-          </div>
-          <div>
-            <img src={data[4].products[0]} alt='recommanded product' className={productDetailStyles['recommand-image']}/>
-            <p>{data[4].name}</p>
-            <p>${data[4].price}</p>
-          </div>
-          <div>
-            <img src={data[5].products[0]} alt='recommanded product' className={productDetailStyles['recommand-image']}/>
-            <p>{data[5].name}</p>
-            <p>${data[5].price}</p>
-          </div>
-          <div>
-            <img src={data[6].products[0]} alt='recommanded product' className={productDetailStyles['recommand-image']}/>
-            <p>{data[6].name}</p>
-            <p>${data[6].price}</p>
-          </div>
-          <div>
-            <img src={data[7].products[0]} alt='recommanded product' className={productDetailStyles['recommand-image']}/>
-            <p>{data[7].name}</p>
-            <p>${data[7].price}</p>
-          </div>
-        </div>
-      </div>
-    </div>
+      }
+    </>
+
   )
 }

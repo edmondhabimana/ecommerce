@@ -1,24 +1,28 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Navigation from './components/navigation/Navigation'
-import Footer from './components/footer/Footer'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import ProductDetail from '../src/components/productDetail/ProductDetail'
 import './App.css'
+import AppLayout from './pages/AppLayout'
 import MainPage from './pages/MainPage'
+
+const router = createBrowserRouter([
+  {
+    element: <AppLayout/>,
+    children: [
+      {
+        path: '/',
+        element: <MainPage/>
+      },
+      {
+        path: 'product-detail/:productName/',
+        element: <ProductDetail/>,
+      }
+    ],
+  }
+])
 
 function App() {
 
-  return (
-    <>
-    <Navigation/>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<MainPage/>}/>
-          <Route path='product-detail/' element={<ProductDetail/>}/>
-        </Routes>
-      </BrowserRouter>
-    <Footer/>
-    </>
-  )
+  return <RouterProvider router={router}/>
 }
 
 export default App

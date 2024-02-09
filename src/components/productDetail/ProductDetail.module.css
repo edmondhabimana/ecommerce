@@ -1,3 +1,36 @@
+.absolute{
+  /* background-color: red; */
+  /* width: 400px; */
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  margin-left: -150px;
+}
+
+.success-message {
+  border-radius: 10px;
+  font-size: 12px;
+  padding: 5px;
+  background-color: white;
+  box-shadow: 2px 2px 15px -5px #cdcdcd;
+  margin-bottom: 15px;
+
+  display: flex;
+  align-items: center;
+}
+
+.check-container {
+  margin-right: 5px;
+  color: white;
+  height: 22px;
+  width: 22px;
+  background-color: green;
+  border-radius: 50%;
+  padding: 5px;
+
+  display: flex;
+}
+
 .body {
   margin-top: 30px;
   margin-bottom: 30px;
@@ -22,24 +55,13 @@
 }
 
 .main-image {
-  width: 550px;
+  width: auto;
+  height: 450px;
   background-color: #dedede;
   border-radius: 15px;
 }
 
 .main-image:hover {
-  background-color: #f02d34;
-  cursor: pointer;
-}
-
-.smaller-images {
-  background-color: #dedede;
-  margin-right: 8px;
-  width: 100px;
-  border-radius: 15px;
-}
-
-.smaller-images:hover {
   background-color: #f02d34;
   cursor: pointer;
 }
@@ -75,37 +97,13 @@
   margin-bottom: 15px;
 }
 
-.info-container p:nth-child(5) {
+.info-container .quantity {
   color: #324d67;
   font-size: 20px;
   font-weight: 700;
   margin-bottom: 50px;
 
   display: flex;
-}
-
-.info-container p:nth-child(5) .minus{
-  /* font-size: 30px; */
-  background-color: white;
-  border: #324d67 1px solid;
-  color: #f02d34;
-  padding: 6px 15px;
-  margin-left: 10px;
-}
-
-.info-container p:nth-child(5) span{
-  font-weight: 400;
-  border-top: #324d67 1px solid;
-  border-bottom: #324d67 1px solid;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-.info-container p:nth-child(5) .plus{
-  background-color: white;
-  border: #324d67 1px solid;
-  color: green;
-  padding: 6px 15px;
 }
 
 .white-button,
@@ -115,6 +113,13 @@
   padding-top: 8px;
   padding-bottom: 8px;
   /* padding: 8px 50px; */
+}
+
+.white-button:hover,
+.red-button:hover {
+  scale: 1.1;
+  cursor: pointer;
+  transition: all .3s ease-in-out;
 }
 
 .white-button {
@@ -179,13 +184,6 @@
 
 .animation-div p:nth-child(3) {
   font-weight: 800;
-}
-
-.recommand-image {
-  width: 250px;
-  background-color: #dedede;
-  margin-right: 10px;
-  border-radius: 15px;
 }
 
 @media (max-width: 1300px) {
