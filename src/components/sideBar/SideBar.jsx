@@ -1,12 +1,11 @@
 import sideBarStyles from './SideBar.module.css'
 import CartItems from '../cartItem/CartItems'
-import { useProducts } from '../../context/ProductsContext'
 import { useCart } from '../../hooks/useCart'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/pro-duotone-svg-icons'
 
-export default function SideBar() {
-  const { displayCart, handleCartDisplay} = useProducts()
+export default function SideBar({displayCart, handleCartDisplay}) {
+  console.log(displayCart);
   const {totalQuantity, collection, cartTotal} = useCart()
 
   return(

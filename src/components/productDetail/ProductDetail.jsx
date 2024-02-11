@@ -5,7 +5,7 @@ import Recommanded from '../recommended/Recommended'
 import SideBar from '../sideBar/SideBar'
 import Button from '../button/button'
 import { useState, useEffect  } from 'react'
-import { useParams } from "react-router-dom"
+import { useParams, useOutletContext } from "react-router-dom"
 import { useDocument } from "../../hooks/useDocument"
 import { useCollection } from '../../hooks/useCollection'
 import { useCart } from '../../hooks/useCart'
@@ -17,6 +17,7 @@ export default function ProductDetail() {
   const [itemCount, setItemCount] = useState(1)
 
   const { productName } = useParams()
+  const [displayCart, handleCartDisplay] = useOutletContext()
   const { data } = useDocument(productName)
   const { collection } = useCollection('products')
   const { addToCart, successMessage, setSuccessMessage } = useCart()
@@ -51,7 +52,7 @@ export default function ProductDetail() {
   }
 
   useEffect(() => {
-    const timerRef = setInterval(() => {
+    const timerRef = setInterval(function () {
       setSuccessMessage((curr) => curr.slice(0, curr.length - 1))
     }, 1200)
     return () => clearInterval(timerRef)
@@ -118,7 +119,7 @@ export default function ProductDetail() {
               ))}
             </div>
           </div>
-          <SideBar/>
+          <SideBar displayCart={displayCart} handleCartDisplay={handleCartDisplay}/>
         </div>
       }
     </>

@@ -3,12 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping } from '@fortawesome/pro-light-svg-icons'
 import { Link } from 'react-router-dom'
 import { useCart } from '../../hooks/useCart'
-import { useProducts } from '../../context/ProductsContext'
 
-export default function Navigation() {
+export default function Navigation({handleCartDisplay}) {
   const { totalQuantity } = useCart()
-  const { handleCartDisplay } = useProducts()
-  // getTotalQuantity()
 
   return(
     <div className={navigationStyles['navigation-container']}>
