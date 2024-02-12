@@ -8,8 +8,6 @@ export default function AppLayout() {
 
   function handleCartDisplay() {
     setDisplayCart((displayCart) => !displayCart)
-    // console.log('clicked');
-    // console.log(displayCart);
   }
 
   return (

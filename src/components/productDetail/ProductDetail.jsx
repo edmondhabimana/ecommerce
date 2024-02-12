@@ -15,6 +15,8 @@ import { faCheck } from '@fortawesome/pro-regular-svg-icons'
 export default function ProductDetail() {
   const [selectedId, setSelectedId] = useState(0)
   const [itemCount, setItemCount] = useState(1)
+  const [intervalId, setIntervalId] = useState(0)
+  // console.log('intervalId', intervalId);
 
   const { productName } = useParams()
   const [displayCart, handleCartDisplay] = useOutletContext()
@@ -50,14 +52,27 @@ export default function ProductDetail() {
 
     setItemCount(1)
   }
-
+  //need to find a solution for useEffect and timer
   useEffect(() => {
+    // console.log('inside useEffect 1');
     const timerRef = setInterval(function () {
+      // console.log('inside useEffect 2');
+
       setSuccessMessage((curr) => curr.slice(0, curr.length - 1))
+
+
     }, 1200)
-    return () => clearInterval(timerRef)
+    setIntervalId(timerRef)
+    // console.log('inside useEffect',timerRef);
 
   }, [setSuccessMessage])
+
+  if(successMessage.length === 0){
+    // console.log('inside the if statement', intervalId);
+    // console.log('success message lenght', successMessage);
+    clearInterval(intervalId)
+  }
+ 
 
   return(
     <>
