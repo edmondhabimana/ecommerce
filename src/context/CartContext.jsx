@@ -17,6 +17,8 @@ function reducer(state, action) {
   switch(action.type){
     case "success-message":
       return {...state, successMessage: [...state.successMessage, action.payload]}
+    case "delete-successMessage":
+      return {...state, successMessage: state.successMessage.slice(0, state.successMessage.length - 1)}
     case "quantity":
       return {...state, itemQuantity: action.payload}
     case "itemTotal":
@@ -82,21 +84,10 @@ function CartProvider({children}) {
   }
 
   useEffect(() => {
-  // const getTotal = () => {
     let itemTotal = 0
     let totalItemsPrice = 0
     //we go through the entire collection of documents/products and add up all the quantity and prices together
 
-    // ref.onSnapshot((querySnapshot) => {
-      // cartCollection.forEach((doc) => {
-      //   console.log(doc.data().quantity );
-      //   itemTotal = itemTotal + doc.data().quantity
-      //   // console.log('itemTotal',itemTotal);
-      //   totalItemsPrice = totalItemsPrice + doc.data().totalPrice
-      //   // console.log('totalItemsPrice',totalItemsPrice);
-      //   console.log(doc.data().totalPrice);
-      // })
-    // })
     cartCollection.forEach(function(item) {
       itemTotal = itemTotal + item.quantity
       totalItemsPrice = totalItemsPrice + item.totalPrice
@@ -105,11 +96,7 @@ function CartProvider({children}) {
     dispatch({ type: "itemTotal", payload: itemTotal})
     dispatch({ type: "totalItemsPrice", payload: totalItemsPrice})
 
-  // }
   }, [cartCollection])
-
-  console.log('totalQuantity', totalQuantity);
-  console.log('cartTotal', cartTotal);
 
   return(
     <CartContext.Provider
@@ -121,8 +108,7 @@ function CartProvider({children}) {
         addToCart,
         deleteItem,
         getItemQuantity,
-        // getCartCollection,
-        // getTotal,
+        dispatch,
         cartCollection
       }}
     >

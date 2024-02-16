@@ -27,7 +27,7 @@ export default function ProductDetail() {
   getProduct(productName)
   // console.log(product);
   // const { collection } = useCollection('products')
-  const { successMessage, addToCart } = useCart()
+  const { successMessage, addToCart, dispatch } = useCart()
   const { details, images, name, price } = product
   
 
@@ -58,39 +58,39 @@ export default function ProductDetail() {
     setItemCount(1)
   }
   //need to find a solution for useEffect and timer
-  // useEffect(() => {
-  //   // console.log('inside useEffect 1');
-  //   const timerRef = setInterval(function () {
-  //     // console.log('inside useEffect 2');
+  useEffect(() => {
+    // console.log('inside useEffect 1');
+    const timerRef = setInterval(function () {
+      // console.log('inside useEffect 2');
 
-  //     setSuccessMessage((curr) => curr.slice(0, curr.length - 1))
+      dispatch({type: "delete-successMessage"})
 
 
-  //   }, 1200)
-  //   setIntervalId(timerRef)
-  //   // console.log('inside useEffect',timerRef);
+    }, 1200)
+    setIntervalId(timerRef)
+    // console.log('inside useEffect',timerRef);
 
-  // }, [setSuccessMessage])
+  }, [dispatch])
 
-  // if(successMessage.length === 0){
-  //   // console.log('inside the if statement', intervalId);
-  //   // console.log('success message lenght', successMessage);
-  //   clearInterval(intervalId)
-  // }
+  if(successMessage.length === 0){
+    // console.log('inside the if statement', intervalId);
+    // console.log('success message lenght', successMessage);
+    clearInterval(intervalId)
+  }
  
 
   return(
     <>
       {product.length !== 0 && collection.length !== 0 &&
         <div>
-          {/* <div className={productDetailStyles.absolute}>
+          <div className={productDetailStyles.absolute}>
             {successMessage.map((suc, index) => (
               <div key={index} className={productDetailStyles['success-message']}>
                 <div className={productDetailStyles['check-container']}><FontAwesomeIcon icon={faCheck} /></div>
                 <p>{suc}</p>
               </div>
             ))}
-          </div> */}
+          </div>
 
           <div className={productDetailStyles.body}>
             <div className={productDetailStyles['images-container']}>

@@ -7,8 +7,6 @@ import { useCart } from '../../context/cartContext'
 export default function Navigation({handleCartDisplay}) {
   const { totalQuantity } = useCart()
 
-  console.log('totalQuantity',totalQuantity);
-
   return(
     <div className={navigationStyles['navigation-container']}>
       <div className={navigationStyles.logo}>
