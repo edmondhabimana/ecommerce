@@ -1,3 +1,7 @@
+.side-bar {
+  z-index: 1;
+}
+
 .cart{
   background-color: white;
   width: 45%;

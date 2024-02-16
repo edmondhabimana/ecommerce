@@ -1,16 +1,19 @@
 import sideBarStyles from './SideBar.module.css'
 import CartItems from '../cartItem/CartItems'
-import { useCart } from '../../hooks/useCart'
+import { useCart } from '../../context/cartContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/pro-duotone-svg-icons'
 
 export default function SideBar({displayCart, handleCartDisplay}) {
-  const {totalQuantity, collection, cartTotal} = useCart()
+  const {totalQuantity, cartCollection, cartTotal} = useCart()
+
+  // getTotal()
+  // console.log(totalQuantity);
 
   return(
     <>
       {displayCart && (
-      <div>
+      <div className={sideBarStyles['side-bar']}>
         <div className={sideBarStyles.cart}>
           <div className={sideBarStyles['item-count']}>
             <FontAwesomeIcon 
@@ -23,7 +26,7 @@ export default function SideBar({displayCart, handleCartDisplay}) {
           </div>
           <div className={sideBarStyles.items}>
             {/* maping through cart collection */}
-            {collection.map((item, index) => (
+            {cartCollection.map((item, index) => (
               <CartItems key={index} item={item}/>
             ))}
           </div>

@@ -20,6 +20,8 @@ function reducer (state, action) {
 const ProductsContext = createContext();
 
 function ProductsProvider({children}) {
+  // const ref = projectFirestore.collection('products')
+  // console.log('products', ref);
   const [{collection, product}, dispatch] = useReducer(reducer, initialState)
 
   useEffect(() => {
@@ -28,26 +30,30 @@ function ProductsProvider({children}) {
       querySnapshot.forEach((doc) => {
           results.push({...doc.data(), id: doc.id})
       })
+      // console.log(results);
       dispatch({type: "collection", payload: results})
     })
   }, [])
+  // console.log(collection);
+  // useEffect(() => { 
+    const getProduct = (id) => {
+      projectFirestore.collection('products').doc(id).get().then((doc) => {
+        if(doc.exists) {
+          // console.log('Document data:', doc.data());
+          dispatch({ type: "document", payload: {...doc.data(), id: doc.id}})
+        }
+  
+      })
+    }
 
-  useEffect(() => { 
-    projectFirestore.collection('products').doc(document).get().then((doc) => {
-      if(doc.exists) {
-        // console.log('Document data:', doc.data());
-        dispatch({ type: "document", payload: {...doc.data(), id: doc.id}})
-      }
-
-    })
-
-  }, [])
+  // }, [])
 
   return (
     <ProductsContext.Provider
       value={{
         collection,
-        product
+        product,
+        getProduct
       }}
     >
       {children}

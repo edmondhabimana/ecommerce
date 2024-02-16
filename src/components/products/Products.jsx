@@ -2,12 +2,12 @@ import productsStyles from './Products.module.css'
 import { useOutletContext } from 'react-router-dom'
 import Product from '../product/Product'
 import SideBar from '../sideBar/SideBar'
-import { useCollection } from '../../hooks/useCollection'
+import { useProducts } from '../../context/ProductsContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinnerScale } from '@fortawesome/pro-thin-svg-icons'
 
 export default function Products () {
-  const { collection } = useCollection('products')
+  const { collection } = useProducts()
   const [displayCart, handleCartDisplay] = useOutletContext()
   console.log(displayCart);
 

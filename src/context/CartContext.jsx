@@ -6,6 +6,7 @@ import { projectFirestore } from "../firebase/config";
 const CartContext = createContext()
 
 const initialSate = {
+  cartCollection: [],
   itemQuantity: null,
   totalQuantity: null,
   cartTotal: null,
@@ -21,14 +22,29 @@ function reducer(state, action) {
     case "itemTotal":
       return {...state, totalQuantity: action.payload}
     case "totalItemsPrice":
-      return {...state, totalQuantity: action.payload}
+      return {...state, cartTotal: action.payload}
+    case "cart-collection":
+      return {...state, cartCollection: action.payload}
   }
 
 }
 
 function CartProvider({children}) {
-  const[{itemQuantity, totalQuantity, cartTotal, successMessage}, dispatch] = useReducer(reducer, initialSate)
+  const[{itemQuantity, totalQuantity, cartTotal, successMessage, cartCollection}, dispatch] = useReducer(reducer, initialSate)
   const ref = projectFirestore.collection('cart')
+
+  useEffect(() => {
+    // const getCartCollection = () => {
+      projectFirestore.collection('cart').onSnapshot((querySnapshot) => {
+        let results = []
+        querySnapshot.forEach((doc) => {
+            results.push({...doc.data(), id: doc.id})
+        })
+        // console.log(results);
+        dispatch({type: "cart-collection", payload: results})
+      })
+    // }
+  }, [])
 
   //with this function we add product to the cart
   const addToCart = (doc) => {
@@ -66,17 +82,34 @@ function CartProvider({children}) {
   }
 
   useEffect(() => {
-
+  // const getTotal = () => {
     let itemTotal = 0
     let totalItemsPrice = 0
     //we go through the entire collection of documents/products and add up all the quantity and prices together
-    ref.forEach(function(item) {
+
+    // ref.onSnapshot((querySnapshot) => {
+      // cartCollection.forEach((doc) => {
+      //   console.log(doc.data().quantity );
+      //   itemTotal = itemTotal + doc.data().quantity
+      //   // console.log('itemTotal',itemTotal);
+      //   totalItemsPrice = totalItemsPrice + doc.data().totalPrice
+      //   // console.log('totalItemsPrice',totalItemsPrice);
+      //   console.log(doc.data().totalPrice);
+      // })
+    // })
+    cartCollection.forEach(function(item) {
       itemTotal = itemTotal + item.quantity
       totalItemsPrice = totalItemsPrice + item.totalPrice
     })
+
     dispatch({ type: "itemTotal", payload: itemTotal})
     dispatch({ type: "totalItemsPrice", payload: totalItemsPrice})
-  }, [ref])
+
+  // }
+  }, [cartCollection])
+
+  console.log('totalQuantity', totalQuantity);
+  console.log('cartTotal', cartTotal);
 
   return(
     <CartContext.Provider
@@ -87,7 +120,10 @@ function CartProvider({children}) {
         successMessage,
         addToCart,
         deleteItem,
-        getItemQuantity
+        getItemQuantity,
+        // getCartCollection,
+        // getTotal,
+        cartCollection
       }}
     >
       {children}
