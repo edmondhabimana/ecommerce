@@ -14,7 +14,6 @@ export default function FooterBanner() {
         <p>Beats Solo Air</p>
         <p>Summer Sale</p>
         <p>Best headphones on the market</p>
-        <button>Shop Now</button>
       </div>
     </div>
   )

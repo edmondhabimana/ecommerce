@@ -8,7 +8,11 @@ export default function Header () {
         <p>Beats solo</p>
         <p>wireless</p>
         <p>headphone</p>
-        <button>Shop wireless headphone</button>
+        <button>
+          <a href='#products-container'>
+            Shop wireless headphone
+          </a>
+        </button>
       </div>
       <div>
         <img src={headphones} alt='headphones'/>

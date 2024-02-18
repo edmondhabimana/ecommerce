@@ -145,12 +145,6 @@
     font-size: 25px;
   }
 
-  .container-2 button {
-    padding: 3px 12px;
-    font-size: 11px;
-    margin-top: 15px;
-  }
-
   .container-2 p:nth-child(1),
   .container-2 p:nth-child(3) {
     font-size: 11px;
