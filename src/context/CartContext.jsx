@@ -74,6 +74,32 @@ function CartProvider({children}) {
     ref.doc(id).delete()
   }
 
+  const increaseQuantity = (id, _price) => {
+    ref.doc(id).get().then((item) => {
+      if(item.exists){
+        ref.doc(id).update({
+          quantity: item.data().quantity + 1,
+          totalPrice: item.data().totalPrice + _price
+        })
+      }
+    })
+  }
+
+  const decreaseQuantity = (id, _price) => {
+    ref.doc(id).get().then((item) => {
+      if(item.exists){
+        if(item.data().quantity <= 1){
+          deleteItem(id)
+          return
+        }
+        ref.doc(id).update({
+          quantity: item.data().quantity - 1,
+          totalPrice: item.data().totalPrice - _price
+        })
+      }
+    })
+  }
+
   const getItemQuantity = (name) => {
     //we grab the document/product quantity
     ref.doc(name).get().then((item) => {
@@ -109,7 +135,9 @@ function CartProvider({children}) {
         deleteItem,
         getItemQuantity,
         dispatch,
-        cartCollection
+        cartCollection,
+        increaseQuantity,
+        decreaseQuantity
       }}
     >
       {children}
