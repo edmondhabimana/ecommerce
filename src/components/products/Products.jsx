@@ -16,7 +16,7 @@ export default function Products () {
     {displayCart && <SideBar displayCart={displayCart} handleCartDisplay={handleCartDisplay}/>}
     { collection.length === 0 && <FontAwesomeIcon icon={faSpinnerScale} spinPulse className={productsStyles.spinner}/>}
     {collection && 
-      <div className={productsStyles.container}>
+      <div className={productsStyles.container} id='products-container'>
         <p>Best Seller Products</p>
         <p className={productsStyles['products-description']}>speaker there many variations passages</p>
         <div className={productsStyles['products-container']}>

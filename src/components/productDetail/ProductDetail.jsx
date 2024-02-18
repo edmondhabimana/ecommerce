@@ -28,7 +28,7 @@ export default function ProductDetail() {
   // console.log(product);
   // const { collection } = useCollection('products')
   const { successMessage, addToCart, dispatch } = useCart()
-  const { details, images, name, price } = product
+  const { details, images, name, price} = product
   
 
   function displayImage(index){

@@ -170,7 +170,7 @@
 .animation-div {
   width: 2000px;
   animation-name: move-across;
-  animation-duration: 10s;
+  animation-duration: 25s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
 

@@ -42,8 +42,16 @@
   padding: 0.5vw;
   border-radius: 1vw;
   color: white;
+  cursor: pointer;
 }
 
+.header-container div:first-child button a {
+  text-decoration: none;
+}
+
+a:visited{
+  color: white;
+}
 .header-container div:last-child img{
   /* margin-top: -10px; */
   height: 80%;

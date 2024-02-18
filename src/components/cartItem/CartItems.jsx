@@ -1,6 +1,6 @@
 import cartItemStyles from './CartItems.module.css'
 import Button from '../button/Button'
-import { useCart } from '../../hooks/useCart';
+import { useCart } from '../../context/cartContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/sharp-solid-svg-icons';
 
