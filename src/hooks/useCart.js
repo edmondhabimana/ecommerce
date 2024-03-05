@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { projectFirestore } from "../firebase/config"
 import { useCollection } from "./useCollection"
 
@@ -8,13 +8,22 @@ export function useCart() {
   const[itemQuantity, setItemQuantity] = useState(null)
   const[totalQuantity, setTotalQuantity] = useState(null)
   const[cartTotal, setCartTotal] = useState(null)
-  const[ successMessage, setSuccessMessage ] = useState([])
+  const[successMessage, setSuccessMessage] = useState([])
+  // const SecondsRemaindingRef = useRef(0)
+  // console.log(successMessage);
 
   const[error, setError] = useState(null)
 
   const { collection } = useCollection('cart')
 
   const ref = projectFirestore.collection('cart')
+
+  // SecondsRemaindingRef.current = successMessage.length * 2
+
+  const deleteSuccesMessage = () => {
+    // SecondsRemaindingRef.current--
+    setSuccessMessage((curr) => curr.slice(0, curr.length - 1))
+  }
 
   //with this function we add product to the cart
   const addToCart = (doc) => {
@@ -104,6 +113,8 @@ export function useCart() {
 
 
 
+
+
   return{ 
     addToCart, 
     deleteItem, 
@@ -116,7 +127,7 @@ export function useCart() {
     isPending, 
     error,
     successMessage,
-    setSuccessMessage,
+    deleteSuccesMessage,
     collection
   }
 }

@@ -4,23 +4,23 @@ import SmallerImages from '../smallerImages/SmallerImages'
 import Recommanded from '../recommended/Recommended'
 import SideBar from '../sideBar/SideBar'
 import Button from '../button/button'
-import { useState, useEffect  } from 'react'
+import AddToCartMessage from '../addToCartMessage/AddToCartMessage'
+import { useState } from 'react'
 import { useParams, useOutletContext } from "react-router-dom"
 import { useDocument } from "../../hooks/useDocument"
 import { useCollection } from '../../hooks/useCollection'
 import { useCart } from '../../hooks/useCart'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck } from '@fortawesome/pro-regular-svg-icons'
 
 export default function ProductDetail() {
   const [selectedId, setSelectedId] = useState(0)
   const [itemCount, setItemCount] = useState(1)
+  console.log(itemCount);
 
   const { productName } = useParams()
   const [displayCart, handleCartDisplay] = useOutletContext()
   const { data } = useDocument(productName)
   const { collection } = useCollection('products')
-  const { addToCart, successMessage, setSuccessMessage } = useCart()
+  const { addToCart, successMessage, deleteSuccesMessage } = useCart()
   const { details, images, name, price } = data
   
 
@@ -51,26 +51,11 @@ export default function ProductDetail() {
     setItemCount(1)
   }
 
-  useEffect(() => {
-    const timerRef = setInterval(function () {
-      setSuccessMessage((curr) => curr.slice(0, curr.length - 1))
-    }, 1200)
-    return () => clearInterval(timerRef)
-
-  }, [setSuccessMessage])
-
   return(
     <>
       {data.length !== 0 && collection.length !== 0 &&
         <div>
-          <div className={productDetailStyles.absolute}>
-            {successMessage.map((suc, index) => (
-              <div key={index} className={productDetailStyles['success-message']}>
-                <div className={productDetailStyles['check-container']}><FontAwesomeIcon icon={faCheck} /></div>
-                <p>{suc}</p>
-              </div>
-            ))}
-          </div>
+          {successMessage.length != 0 && <AddToCartMessage successMessage={successMessage} deleteSuccesMessage={deleteSuccesMessage}/>}
 
           <div className={productDetailStyles.body}>
             <div className={productDetailStyles['images-container']}>

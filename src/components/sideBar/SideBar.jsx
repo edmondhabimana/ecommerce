@@ -5,13 +5,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/pro-duotone-svg-icons'
 
 export default function SideBar({displayCart, handleCartDisplay}) {
-  console.log(displayCart);
+  // console.log(displayCart);
   const {totalQuantity, collection, cartTotal} = useCart()
 
   return(
     <>
       {displayCart && (
-      <div>
+      <div className={sideBarStyles['side-bar']}>
         <div className={sideBarStyles.cart}>
           <div className={sideBarStyles['item-count']}>
             <FontAwesomeIcon 
