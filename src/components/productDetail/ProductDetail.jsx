@@ -4,31 +4,24 @@ import SmallerImages from '../smallerImages/SmallerImages'
 import Recommanded from '../recommended/Recommended'
 import SideBar from '../sideBar/SideBar'
 import Button from '../button/button'
-import { useState, useEffect  } from 'react'
+import SuccessMessage from '../successMessage/SuccessMessage'
+import { useState } from 'react'
 import { useParams, useOutletContext } from "react-router-dom"
 import { useProducts } from '../../context/ProductsContext'
-// import { useDocument } from "../../hooks/useDocument"
-// import { useCollection } from '../../hooks/useCollection'
-// import { useCart } from '../../hooks/useCart'
 import { useCart } from '../../context/cartContext'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck } from '@fortawesome/pro-regular-svg-icons'
+import { useMemo } from 'react'
 
 export default function ProductDetail() {
   const [selectedId, setSelectedId] = useState(0)
   const [itemCount, setItemCount] = useState(1)
-  const [intervalId, setIntervalId] = useState(0)
-  // console.log('intervalId', intervalId);
-
   const { productName } = useParams()
   const [displayCart, handleCartDisplay] = useOutletContext()
   const { collection, product, getProduct } = useProducts()
-
-  getProduct(productName)
-  // console.log(product);
-  // const { collection } = useCollection('products')
-  const { successMessage, addToCart, dispatch } = useCart()
+  const { addToCart } = useCart()
   const { details, images, name, price} = product
+
+  //we use useMemo to prevent getProduct from infinite re-render
+  useMemo(() => getProduct(productName), [productName]) 
   
 
   function displayImage(index){
@@ -57,41 +50,13 @@ export default function ProductDetail() {
 
     setItemCount(1)
   }
-  //need to find a solution for useEffect and timer
-  useEffect(() => {
-    // console.log('inside useEffect 1');
-    const timerRef = setInterval(function () {
-      // console.log('inside useEffect 2');
-
-      dispatch({type: "delete-successMessage"})
-
-
-    }, 1200)
-    setIntervalId(timerRef)
-    // console.log('inside useEffect',timerRef);
-
-  }, [dispatch])
-
-  if(successMessage.length === 0){
-    // console.log('inside the if statement', intervalId);
-    // console.log('success message lenght', successMessage);
-    clearInterval(intervalId)
-  }
  
 
   return(
     <>
       {product.length !== 0 && collection.length !== 0 &&
         <div>
-          <div className={productDetailStyles.absolute}>
-            {successMessage.map((suc, index) => (
-              <div key={index} className={productDetailStyles['success-message']}>
-                <div className={productDetailStyles['check-container']}><FontAwesomeIcon icon={faCheck} /></div>
-                <p>{suc}</p>
-              </div>
-            ))}
-          </div>
-
+          <SuccessMessage/>
           <div className={productDetailStyles.body}>
             <div className={productDetailStyles['images-container']}>
               <div>

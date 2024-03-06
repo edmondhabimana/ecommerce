@@ -7,7 +7,6 @@ const CartContext = createContext()
 
 const initialSate = {
   cartCollection: [],
-  itemQuantity: null,
   totalQuantity: null,
   cartTotal: null,
   successMessage: []
@@ -19,8 +18,6 @@ function reducer(state, action) {
       return {...state, successMessage: [...state.successMessage, action.payload]}
     case "delete-successMessage":
       return {...state, successMessage: state.successMessage.slice(0, state.successMessage.length - 1)}
-    case "quantity":
-      return {...state, itemQuantity: action.payload}
     case "itemTotal":
       return {...state, totalQuantity: action.payload}
     case "totalItemsPrice":
@@ -32,7 +29,7 @@ function reducer(state, action) {
 }
 
 function CartProvider({children}) {
-  const[{itemQuantity, totalQuantity, cartTotal, successMessage, cartCollection}, dispatch] = useReducer(reducer, initialSate)
+  const[{totalQuantity, cartTotal, successMessage, cartCollection}, dispatch] = useReducer(reducer, initialSate)
   const ref = projectFirestore.collection('cart')
 
   useEffect(() => {
@@ -70,6 +67,10 @@ function CartProvider({children}) {
     })
   }
 
+  const deleteSuccessMessage = () => {
+    dispatch({type: "delete-successMessage"})
+  }
+
   const deleteItem = (id) => {
     ref.doc(id).delete()
   }
@@ -100,15 +101,6 @@ function CartProvider({children}) {
     })
   }
 
-  const getItemQuantity = (name) => {
-    //we grab the document/product quantity
-    ref.doc(name).get().then((item) => {
-      if(item.exists){
-        dispatch({type: 'quantity', payload: item.data().quantity})
-      }
-    })
-  }
-
   useEffect(() => {
     let itemTotal = 0
     let totalItemsPrice = 0
@@ -127,14 +119,12 @@ function CartProvider({children}) {
   return(
     <CartContext.Provider
       value={{
-        itemQuantity, 
         totalQuantity, 
         cartTotal, 
         successMessage,
         addToCart,
         deleteItem,
-        getItemQuantity,
-        dispatch,
+        deleteSuccessMessage,
         cartCollection,
         increaseQuantity,
         decreaseQuantity
