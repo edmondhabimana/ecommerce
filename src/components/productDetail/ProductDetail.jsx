@@ -18,7 +18,7 @@ export default function ProductDetail() {
 
   const { productName } = useParams()
   const [displayCart, handleCartDisplay] = useOutletContext()
-  const { data } = useDocument(productName)
+  const { data } = useDocument('products', productName)
   const { collection } = useCollection('products')
   const { addToCart, successMessage, deleteSuccesMessage } = useCart()
   const { details, images, name, price } = data

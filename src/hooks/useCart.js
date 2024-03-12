@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { projectFirestore } from "../firebase/config"
 import { useCollection } from "./useCollection"
 
@@ -95,6 +95,19 @@ export function useCart() {
 
   }
 
+  const updateFromModal = (_name, _quantity) => {
+    ref.doc(_name).get().then(async (item) => {
+      if(item.exists){
+        // if it does exist we just update the quantity of the item
+        await ref.doc(_name).update({
+          // quantity: item.data().quantity + doc.quantity,
+          quantity: _quantity,
+          totalPrice: item.data().unitPrice * _quantity
+        })
+      }
+    })
+  }
+
 
   useEffect(() => {
 
@@ -128,6 +141,7 @@ export function useCart() {
     error,
     successMessage,
     deleteSuccesMessage,
-    collection
+    collection,
+    updateFromModal
   }
 }
