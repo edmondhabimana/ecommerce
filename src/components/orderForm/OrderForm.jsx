@@ -20,8 +20,11 @@ export default function OrderForm() {
   const [DisplayModal, setDisplayModal] = useState(false)
   const [productId, setProductId] = useState(null)
   const [productQuantity, setProductQuantity] = useState(null)
+
+  //state for form
+  const [emailError, setEmailError] = useState(null)
   const { collection } = useCollection('cart')
-  console.log(productId);
+  console.log(emailError);
 
 
 
@@ -96,45 +99,94 @@ export default function OrderForm() {
         </div>
       </div>
       <hr/>
-      <div className={orderFormStyles.form}>
-        <fieldset>
+      <form className={orderFormStyles.form}>
+        <p>Pay with card</p>
+        <fieldset className={orderFormStyles.email}>
           <label>Email</label>
-          <input type='email'/>
+          <input 
+            type='email' 
+            // required='fill'
+            onInvalid={() => setEmailError('REQUIRED')}
+            // onInput='setEmailError()'
+          />
         </fieldset>
-        <fieldset>
-          <label>Shipping method</label>
-          <input type='radio' name='shipping-method'/>
-          <p>FREE</p>
-          <p>Free</p>
-          <input type='radio' name='shipping-method'/>
-          <p>FAST</p>
-          <p>1-3 business days</p>
+        <fieldset className={orderFormStyles['shipping-method']}>
+          <label className={orderFormStyles['shipping-title']}>Shipping method</label>
+          <div className={orderFormStyles.free}>
+            <div>
+              <input type='radio' name='shipping-method' value='free'/>
+              <label>FREE</label>
+            </div>
+            <p>Free</p>
+          </div>
+          <div className={orderFormStyles.fast}>
+            <div>
+              <input type='radio' name='shipping-method' value='20.00'/>
+              <div>
+                <label>FAST</label>
+                <p className={orderFormStyles.business}>1-3 business days</p>
+              </div>
+            </div>
+            <p>$20.00</p>
+          </div>
         </fieldset>
-        <fieldset>
+        <fieldset className={orderFormStyles['card-info']}>
           <label>Card information</label>
-          <input type='number' placeholder='1234 1234 1234 1234'/>
-          <input type='number' placeholder='MM/YY'/>
-          <input type='number' placeholder='CVC'/>
+          <div className={orderFormStyles.card}>
+            <input 
+              type='number' 
+              placeholder='1234 1234 1234 1234'
+              className={orderFormStyles['card-num']}
+            />
+            <input 
+              type='number' 
+              placeholder='MM/YY'
+              className={orderFormStyles.date}
+            />
+            <input 
+              type='number' 
+              placeholder='CVC'
+              className={orderFormStyles.code}
+            />
+          </div>
         </fieldset>
-        <fieldset>
+        <fieldset className={orderFormStyles['card-name']}>
           <label>Cardholder name</label>
           <input placeholder='Full name on card'/>
         </fieldset>
-        <fieldset>
+        <fieldset className={orderFormStyles.billing}>
           <label>Billing address</label>
-          <select>
-            <option>United States</option>
-          </select>
-          <input type='text' placeholder='Address line 1'/>
-          <input type='text' placeholder='Address line 2'/>
-          <input type='text' placeholder='City'/>
-          <input type='number' placeholder='ZIP'/>
-          <select defaultValue='State' className={orderFormStyles.states}>
-            <option>Alabama</option>
-          </select>
+          <div className={orderFormStyles['billing-info']}>
+            <select className={orderFormStyles.countries}>
+              <option>United States</option>
+            </select>
+            <input 
+              type='text' 
+              placeholder='Address line 1'
+              className={orderFormStyles['address-1']}
+            />
+            <input 
+              type='text' 
+              placeholder='Address line 2'
+              className={orderFormStyles['address-2']}
+            />
+            <input 
+              type='text' 
+              placeholder='City'
+              className={orderFormStyles.city}
+            />
+            <input 
+              type='number' 
+              placeholder='ZIP'
+              className={orderFormStyles.zip}
+            />
+            <select className={orderFormStyles.states}>
+              <option>Alabama</option>
+            </select>
+          </div>
         </fieldset>
         <button>Pay</button>
-      </div>
+      </form>
       {DisplayModal && <UpdateQuantityModal productId={productId} setDisplayModal={setDisplayModal} productQuantity={productQuantity}/>}
     </div>
   )

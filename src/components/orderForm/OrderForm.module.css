@@ -92,9 +92,8 @@
 }
 
 hr {
-  /* border: 0;
-  border-top: 1px solid #e6e6e6; */
-  height: 100%;
+  border: 0;
+  border-top: 1px solid #e6e6e6;
 }
 
 .shipping {
@@ -114,4 +113,247 @@ hr {
 
   display: flex;
   justify-content: space-between;
+}
+
+/* FORM */
+.form {
+  max-width: 400px;
+}
+
+.form p:first-child {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.email {
+  border: none;
+  margin-bottom: 30px;
+  font-size: 14px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.email input {
+  border: 1px solid #cfcfcf;
+  height: 38px;
+  border-radius: 5px;
+  box-shadow: 0 1px 1px 1px #f0f0f0;
+}
+
+/* SHIPPING METHOD */
+
+.shipping-method {
+  border: none;
+  margin-bottom: 20px;
+}
+
+.shipping-method .shipping-title {
+  display: inline-block;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.free {
+  border: 1px solid #cfcfcf;
+  padding: 6px;
+  font-size: 14px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.shipping-method .free {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.free div label {
+  margin-left: 10px;
+  /* font-size: 14px; */
+}
+
+.fast {
+  border-left: 1px solid #cfcfcf;
+  border-right: 1px solid #cfcfcf;
+  border-bottom: 1px solid #cfcfcf;
+  padding: 6px;
+  font-size: 14px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  box-shadow: 0 1px 1px 1px #f0f0f0;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fast div,
+.fast div div:last-child {
+  display: flex;
+}
+
+.fast div div:last-child {
+  margin-left: 10px;
+  flex-direction: column;
+}
+
+.fast .business {
+  color: #a7a7a7;
+  font-size: 12px;
+}
+
+/* CARD INFORMATION */
+
+.card-info {
+  margin-bottom: 20px;
+  border: none;
+}
+
+.card-info label {
+  display: inline-block;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.card {
+  box-shadow: 0 1px 1px 1px #f0f0f0;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.card-num {
+  height: 38px;
+  border: 1px solid #cfcfcf;
+  padding-left: 5px;
+  grid-column: 1/3;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.date {
+  height: 38px;
+  padding-left: 5px;
+  border-top: none;
+  border-right: none;
+  border-left: 1px solid #cfcfcf;
+  border-bottom: 1px solid #cfcfcf;
+  border-bottom-left-radius: 5px;
+}
+
+.code {
+  border-top: none;
+  padding-left: 5px;
+  border-left: 1px solid #cfcfcf;
+  border-right: 1px solid #cfcfcf;
+  border-bottom: 1px solid #cfcfcf;
+  border-bottom-right-radius: 5px;
+}
+
+/* CARDHOLDER NAME */
+
+.card-name {
+  border: none;
+  margin-bottom: 20px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.card-name label {
+  display: inline-block;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.card-name input {
+  height: 38px;
+  padding-left: 5px;
+  border: 1px solid #cfcfcf;
+  border-radius: 5px;
+  box-shadow: 0 1px 1px 1px #f0f0f0;
+}
+
+/* BILLING ADDRESS */
+.billing {
+  border: none;
+  margin-bottom: 30px;
+}
+
+.billing label {
+  display: inline-block;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.billing .billing-info {
+  box-shadow: 0 1px 1px 1px #f0f0f0;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.countries,
+.address-1,
+.address-2,
+.states {
+  grid-column: 1/3;
+  height: 38px;
+}
+
+.countries {
+  border: 1px solid #cfcfcf;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.address-1 {
+  border-top: none;
+  border-bottom: none;
+  border-left: 1px solid #cfcfcf;
+  border-right: 1px solid #cfcfcf;
+  padding-left: 5px;
+}
+
+.address-2 {
+  border: 1px solid #cfcfcf;
+  padding-left: 5px;
+}
+
+.city {
+  border-top: none;
+  border-bottom: none;
+  border-left: 1px solid #cfcfcf;
+  border-right: 1px solid #cfcfcf;
+  height: 38px;
+  padding-left: 5px;
+}
+
+.zip {
+  border-right: 1px solid #cfcfcf;
+  border-bottom: none;
+  border-left: none;
+  border-top: none;
+  height: 38px;
+  padding-left: 5px;
+}
+
+.states {
+  border: 1px solid #cfcfcf;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.form button {
+  width: 100%;
+  font-size: 16px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 100px;
+  background-color: #0074d4;
+  color: white;
+  border: none;
+  border-radius: 5px;
 }
