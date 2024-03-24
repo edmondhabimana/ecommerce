@@ -1,9 +1,15 @@
 import orderFormStyles from './OrderForm.module.css'
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Payment from 'payment';
+import { formatCreditCardNumber,
+         formatCVC,
+         formatExpirationDate } from '../../utils';  
 import OrderItem from '../orderItem/OrderItem';
+import SelectCountries from '../selectCountry/SelectCountry';
+import SelectState from '../selectState/selectState';
+import Error from '../error/error';
 import UpdateQuantityModal from '../updateQuantityModal/UpdateQuantityModal';
-import AddToCartMessage from '../addToCartMessage/AddToCartMessage';
 import { useCollection } from '../../hooks/useCollection'
 import { useCart } from '../../hooks/useCart';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,19 +18,150 @@ import { faArrowLeft,
          faAngleUp, 
          faAngleDown 
         } from '@fortawesome/pro-solid-svg-icons';
+import { faCircleExclamation } from '@fortawesome/pro-regular-svg-icons';
+import { useReducer } from 'react';
+
+//we start put as false as to say no error but flip it to true when errors occur
+const initialState = {
+  emailError: null,
+  emailValue: '',
+  cardNumberError: null, 
+  cardNumberValue: '',
+  cardDateError: null,
+  cardDateValue: '',
+  cardCvcError: null,
+  cardCvcValue: '',
+  cardNameError: null,
+  cardNameValue: '',
+  addressOneError: null,
+  addressOneValue: '',
+  addressTwoError: null,
+  addressTwoValue: '',
+  cityError: null,
+  cityValue: '',
+  zipError: null,
+  zipValue: '',
+  selectedCountry: 'United States',
+  selectedState: ''
+}
+const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'email':
+      return {
+        ...state,
+        emailValue:  action.payload,
+        emailError: !action.payload.match(validRegex) ? false : 
+                    action.payload.slice(-4) !== '.com' ? false : true
+      }
+
+    case 'cardNumber':
+      return {
+        ...state,
+        cardNumberValue: formatCreditCardNumber(action.payload),
+        cardNumberError: Payment.fns.validateCardNumber(action.payload)
+      }
+    case 'cardDate':
+      return{
+        ...state,
+        cardDateValue: formatExpirationDate(action.payload),
+        cardDateError: Payment.fns.validateCardExpiry(action.payload)
+      }
+    case 'cardCvc':
+      return{
+        ...state,
+        cardCvcValue: formatCVC(action.payload),
+        cardCvcError: Payment.fns.validateCardCVC(action.payload)
+      }
+    case 'cardName':
+      return {
+        ...state,
+        cardNameValue: action.payload,
+        cardNameError: action.payload === ''
+      }
+    case 'selectedCountry':
+      return{
+        ...state,
+        selectedCountry: action.payload
+      }
+    case 'address-1':
+      return {
+        ...state,
+        addressOneValue: action.payload,
+        addressOneError: action.payload === ''
+      }
+    case 'address-2':
+      return {
+        ...state,
+        addressTwoValue: action.payload,
+        addressTwoError: action.payload === ''
+      }
+    case 'city':
+      return {
+        ...state,
+        cityValue: action.payload,
+        cityError: action.payload === ''
+      }
+    case 'zip':
+      return {
+        ...state,
+        zipValue: action.payload,
+        cityError: action.payload === ''
+      }
+    case 'selectedState':
+      return {
+        ...state,
+        selectedState: action.payload
+      }
+  }
+}
 
 
 export default function OrderForm() {
+  const [{
+    emailError, 
+    emailValue, 
+    cardNumberError, 
+    cardNumberValue, 
+    cardDateError, 
+    cardDateValue, 
+    cardCvcError, 
+    cardCvcValue, 
+    cardNameError, 
+    cardNameValue, 
+    selectedCountry,
+    addressOneValue,
+    addressOneError,
+    addressTwoValue,
+    addressTwoError,
+    cityValue,
+    cityError,
+    zipValue,
+    zipError,
+    selectedState }, 
+    dispatch] = useReducer(reducer, initialState)
+    console.log();
+  console.log('address-1 value',addressOneValue);
+  // console.log('function',Payment.fns.validateCardNumber(4031630119256641));
+  console.log('address-1 error',addressOneError);
+
   const [isCollapsed, setIsCollapsed] = useState(true)
+  const [emailFocus, setEmailFocus] = useState(false)
+  const [cardNumberFocus, setCardNumberFocus] = useState(false)
+  const [dateFocus, setDateFocus] = useState(false)
+  const [cvcFocus, setCvcFocus] = useState(false)
   const [mouseEnter, setMouseEnter] = useState(false)
   const [DisplayModal, setDisplayModal] = useState(false)
   const [productId, setProductId] = useState(null)
   const [productQuantity, setProductQuantity] = useState(null)
+  const [fastShipping, setFastShipping] = useState('free')
+  console.log('fastShipping', fastShipping);
 
   //state for form
-  const [emailError, setEmailError] = useState(null)
   const { collection } = useCollection('cart')
-  console.log(emailError);
+  // console.log(emailError);
+  // Payment.formatCardNumber()
 
 
 
@@ -88,14 +225,14 @@ export default function OrderForm() {
         <div className={orderFormStyles.shipping}>
           <div>
             <p>Shipping</p>
-            <p>FREE</p>
+            {fastShipping === 'free' ? <p>FREE</p> : <p>FAST (1-3 business days)</p> }
           </div>
-          <p>Free</p>
+          {fastShipping === 'free' ? <p>Free</p> : <p>20.00</p>}
         </div>
         <hr/>
         <div className={orderFormStyles.price}>
           <p>Total due</p>
-          <p>${cartTotal}</p>
+          <p>${fastShipping === 'free' ? (cartTotal).toFixed(2) : (cartTotal + 20.00).toFixed(2)}</p>
         </div>
       </div>
       <hr/>
@@ -105,23 +242,39 @@ export default function OrderForm() {
           <label>Email</label>
           <input 
             type='email' 
-            // required='fill'
-            onInvalid={() => setEmailError('REQUIRED')}
-            // onInput='setEmailError()'
+            placeholder='john@email.com'
+            onFocus={() => setEmailFocus(true)}
+            onBlur={() => setEmailFocus(false)}
+            className={`${emailValue && !emailError ? `${orderFormStyles.error}` : `${orderFormStyles['gray-border']}`}`}
+            onChange={(e) => dispatch({type: 'email', payload: `${e.target.value}`})}
           />
+          {emailValue && !emailFocus && !emailError && <FontAwesomeIcon icon={faCircleExclamation} className={orderFormStyles['email-faCircleExclamation']}/>}
         </fieldset>
+        {emailValue && !emailFocus && !emailError && <Error inputText='email' textStyle={orderFormStyles['error-text']}/>}
         <fieldset className={orderFormStyles['shipping-method']}>
           <label className={orderFormStyles['shipping-title']}>Shipping method</label>
           <div className={orderFormStyles.free}>
             <div>
-              <input type='radio' name='shipping-method' value='free'/>
+              <input 
+                type='radio' 
+                name='shipping-method' 
+                value='free'
+                checked={fastShipping === "free"}
+                onChange={(e)=> setFastShipping(e.target.value)}
+              />
               <label>FREE</label>
             </div>
             <p>Free</p>
           </div>
           <div className={orderFormStyles.fast}>
             <div>
-              <input type='radio' name='shipping-method' value='20.00'/>
+              <input 
+                type='radio' 
+                name='shipping-method' 
+                value='20.00'
+                checked={fastShipping === "20.00"}
+                onChange={(e)=> setFastShipping(e.target.value)}
+              />
               <div>
                 <label>FAST</label>
                 <p className={orderFormStyles.business}>1-3 business days</p>
@@ -134,56 +287,98 @@ export default function OrderForm() {
           <label>Card information</label>
           <div className={orderFormStyles.card}>
             <input 
-              type='number' 
+              type='text' 
               placeholder='1234 1234 1234 1234'
-              className={orderFormStyles['card-num']}
+              onFocus={() => setCardNumberFocus(true)}
+              onBlur={() => setCardNumberFocus(false)}
+              className={`${orderFormStyles['card-num']} ${cardNumberValue && !cardNumberError ? `${orderFormStyles.error}` : `${orderFormStyles['gray-border']}`}`}
+              value={cardNumberValue}
+              onChange={(e) => dispatch({type: 'cardNumber', payload: `${e.target.value}`})}
             />
             <input 
-              type='number' 
+              type='text' 
               placeholder='MM/YY'
-              className={orderFormStyles.date}
+              onFocus={() => setDateFocus(true)}
+              onBlur={() => setDateFocus(false)}
+              className={`${orderFormStyles.date} ${cardDateValue &&!cardDateError ? `${orderFormStyles['date-error']}` : `${orderFormStyles['date-gray-border']}`}`}
+              value={cardDateValue}
+              onChange={(e) => dispatch({type: 'cardDate', payload: `${e.target.value}`})}
             />
             <input 
-              type='number' 
+              type='text' 
               placeholder='CVC'
-              className={orderFormStyles.code}
+              onFocus={() => setCvcFocus(true)}
+              onBlur={() => setCvcFocus(false)}
+              className={`${orderFormStyles.cvc} ${cardCvcValue && !cardCvcError ? `${orderFormStyles['cvc-error']}` : `${orderFormStyles['cvc-gray-border']}`}`}
+              value={cardCvcValue}
+              onChange={(e) => dispatch({type: 'cardCvc', payload: `${e.target.value}`})}
             />
           </div>
+          {cardNumberValue && !cardNumberFocus && !cardNumberError && <FontAwesomeIcon icon={faCircleExclamation} className={orderFormStyles['card-number-faCircleExclamation']}/>}
+          {cardDateValue && !dateFocus && !cardDateError &&           <FontAwesomeIcon icon={faCircleExclamation} className={orderFormStyles['date-faCircleExclamation']}/>}
+          {cardCvcValue && !cvcFocus && !cardCvcError &&           <FontAwesomeIcon icon={faCircleExclamation} className={orderFormStyles['cvc-faCircleExclamation']}/>}
         </fieldset>
+        {cardNumberValue && !cardNumberFocus && !cardNumberError && <Error inputText='card number' textStyle={orderFormStyles['error-text']}/>}
+        {cardDateValue && !dateFocus && !cardDateError && <Error inputText="card's expiration date" textStyle={orderFormStyles['error-text']}/>}
+        {cardCvcValue && !cvcFocus && !cardCvcError && <Error inputText="card's security code" textStyle={orderFormStyles['error-text']}/>}
         <fieldset className={orderFormStyles['card-name']}>
-          <label>Cardholder name</label>
-          <input placeholder='Full name on card'/>
+          <div className={orderFormStyles['error-label']}>
+            <label>Cardholder name</label>
+            {cardNameError && <p className={orderFormStyles['card-name-error']}>REQUIRED</p>}
+          </div>
+          <input 
+            placeholder='Full name on card'
+            value={cardNameValue}
+            className={`${cardNameError ? `${orderFormStyles.error}` : `${orderFormStyles['gray-border']}`}`}
+            onChange={(e) => dispatch({type: 'cardName', payload: `${e.target.value}`})}
+          />
         </fieldset>
         <fieldset className={orderFormStyles.billing}>
           <label>Billing address</label>
           <div className={orderFormStyles['billing-info']}>
-            <select className={orderFormStyles.countries}>
-              <option>United States</option>
-            </select>
+            <SelectCountries 
+              selectedCountry={selectedCountry} 
+              dispatch={dispatch}
+              countriesStyles={orderFormStyles.countries}
+            />
             <input 
               type='text' 
               placeholder='Address line 1'
-              className={orderFormStyles['address-1']}
+              className={`${orderFormStyles['address-1']} ${addressOneError ? `${orderFormStyles.error}` : `${orderFormStyles['gray-border']}`}`}
+              value={addressOneValue}
+              onChange={(e) => dispatch({type: 'address-1', payload: `${e.target.value}`})}
             />
             <input 
               type='text' 
               placeholder='Address line 2'
               className={orderFormStyles['address-2']}
+              value={addressTwoValue}
+              onChange={(e) => dispatch({type: 'address-2', payload: `${e.target.value}`})}
             />
             <input 
               type='text' 
               placeholder='City'
               className={orderFormStyles.city}
+              value={cityValue}
+              onChange={(e) => dispatch({type: 'city', payload: `${e.target.value}`})}
             />
             <input 
-              type='number' 
+              type='text' 
               placeholder='ZIP'
               className={orderFormStyles.zip}
+              value={zipValue}
+              onChange={(e) => dispatch({type: 'zip', payload: `${e.target.value}`})}
             />
-            <select className={orderFormStyles.states}>
-              <option>Alabama</option>
-            </select>
+            <SelectState 
+              stateStyles={orderFormStyles.states}
+              selectedState={selectedState}
+              dispatch={dispatch}
+            />
           </div>
+          {addressOneError && <FontAwesomeIcon icon={faCircleExclamation} className={orderFormStyles['address-1-faCircleExclamation']}/>}
+          {addressTwoError  &&  <FontAwesomeIcon icon={faCircleExclamation} className={orderFormStyles['address-2-faCircleExclamation']}/>}
+          {cityError && <FontAwesomeIcon icon={faCircleExclamation} className={orderFormStyles['city-faCircleExclamation']}/>}
+          {zipError && <FontAwesomeIcon icon={faCircleExclamation} className={orderFormStyles['zip-faCircleExclamation']}/>}
         </fieldset>
         <button>Pay</button>
       </form>
