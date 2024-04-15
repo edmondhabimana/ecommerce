@@ -1,7 +1,7 @@
 import { BrowserRouter, createBrowserRouter, Route, Routes, RouterProvider } from 'react-router-dom'
 import ProductDetail from '../src/components/productDetail/ProductDetail'
 import './App.css'
-import Order from './components/order/order'
+import OrderPlaced from './components/orderPlaced/OrderPlaced'
 import OrderForm from './components/orderForm/OrderForm'
 import AppLayout from './pages/AppLayout'
 import MainPage from './pages/MainPage'
@@ -42,6 +42,7 @@ function App() {
           <Route path='product-detail/:productName' element={<ProductDetail/>}/>
         </Route>
         <Route path='order' element={<OrderForm/>}/>
+        <Route path='orderplaced' element={<OrderPlaced/>}/>
       </Routes>
     </BrowserRouter>
   )

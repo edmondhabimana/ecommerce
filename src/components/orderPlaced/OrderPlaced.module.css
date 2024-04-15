@@ -1,0 +1,120 @@
+.order-container {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 12.5vh;
+  padding-left: 60px;
+  padding-right: 60px;
+  /* transform: translate(-50%, -50%); */
+  width: 50%;
+
+  /* background-color: red; */
+}
+
+.order-details {
+  display: flex;
+  flex-direction: column;
+  /* gap: 30px; */
+  /* align-items: center; */
+}
+
+.order-placed {
+  text-align: center;
+  color: #4ab260;
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.order-check {
+  font-size: 40px;
+}
+
+.order-id {
+  text-align: center;
+  color: white;
+  font-weight: 700;
+  background-color: #4ab260;
+  align-self: center;
+  padding: 5px 10px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+}
+
+.order-items {
+  padding-left: 20px;
+  padding-right: 20px;
+  box-shadow: 3px 5px 10px rgb(210, 210, 210);
+}
+
+.negative-margin {
+  margin: -1px;
+}
+
+/* .order-id {
+  margin-bottom: 50px;
+
+} */
+
+.order-item {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  display: flex;
+  /* gap: 50px; */
+  justify-content: space-between;
+}
+.order-item div {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.name {
+  font-weight: 300;
+  font-size: 14px;
+}
+
+.quantity,
+.totalPrice {
+  font-weight: 700;
+}
+
+.quantity span {
+  font-size: 12px;
+}
+
+.quantity {
+  display: flex;
+  align-items: center;
+}
+
+button {
+  align-self: center;
+  border: none;
+  background-color: white;
+  margin-top: 30px;
+  cursor: pointer;
+  transition: all .4s ease-in-out;
+
+  display: flex;
+  align-items: center;
+}
+
+button:hover {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  /* box-shadow: 3px 5px 10px rgb(210, 210, 210); */
+}
+
+.arrow {
+  margin-left: 6px;
+  font-size: 20px;
+}
+
+button:hover > .arrow  {
+  margin-left: 12px;
+  margin-right: -12px;
+}

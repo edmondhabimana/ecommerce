@@ -7,7 +7,7 @@ export default function OrderItem({item, setDisplayModal, setProductId, setProdu
 
   return (
     <div className={orderItemStyles['order-item']}>
-      <div className={orderItemStyles.image} onClick={() => console.log('clicked')}>
+      <div className={orderItemStyles.image}>
         <img src={image} alt={name} className={orderItemStyles.image}/>
       </div>
       <div className={orderItemStyles.container}>

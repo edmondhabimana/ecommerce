@@ -3,10 +3,16 @@ import CartItems from '../cartItem/CartItems'
 import { useCart } from '../../hooks/useCart'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/pro-duotone-svg-icons'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 export default function SideBar({displayCart, handleCartDisplay}) {
   // console.log(displayCart);
   const {totalQuantity, collection, cartTotal} = useCart()
+  const navigate = useNavigate()
+
+  function handleNavigation() {
+    navigate('/order')
+  }
 
   return(
     <>
@@ -33,7 +39,9 @@ export default function SideBar({displayCart, handleCartDisplay}) {
               <p>subtotal:</p>
               <p>${cartTotal}</p>
             </div>
-            <button>pay</button>
+            <button
+              onClick={() => handleNavigation()}
+            >pay</button>
           </div>
         </div>
         <div 
