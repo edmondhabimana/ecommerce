@@ -19,9 +19,15 @@ import { faArrowLeft,
          faAngleDown,
          faCreditCard 
         } from '@fortawesome/pro-solid-svg-icons';
-import { faCcMastercard, faCcVisa } from '@fortawesome/free-brands-svg-icons';
-import { faCircleExclamation } from '@fortawesome/pro-regular-svg-icons';
-import { useReducer } from 'react';
+// import { AddressElement, CardNumberElement, PaymentElement } from '@stripe/react-stripe-js';
+import { CardNumberElement } from '@stripe/react-stripe-js';
+import { AddressElement } from '@stripe/react-stripe-js';
+import { PaymentElement } from '@stripe/react-stripe-js';
+import { CardElement } from '@stripe/react-stripe-js';
+import { useEffect } from 'react';
+// import { faCcMastercard, faCcVisa } from '@fortawesome/free-brands-svg-icons';
+// import { faCircleExclamation } from '@fortawesome/pro-regular-svg-icons';
+// import { useReducer } from 'react';
 
 //we start put as false as to say no error but flip it to true when errors occur
 // const initialState = {
@@ -154,7 +160,7 @@ export default function OrderForm() {
   const [productId, setProductId] = useState(null)
   const [productQuantity, setProductQuantity] = useState(null)
   // const [fastShipping, setFastShipping] = useState('free')
-
+  // console.log(clientSecretKey);
 
   //state for form
   const { collection } = useCollection('cart')
@@ -167,6 +173,8 @@ export default function OrderForm() {
   function handleNavigation() {
     navigation(`/`)
   }
+
+
 
   // function handleSubmit(e) {
   //   e.preventDefault();
@@ -231,11 +239,11 @@ export default function OrderForm() {
               <FontAwesomeIcon icon={faAngleUp} className={orderFormStyles.icon}/> }
           </button>
         }
-        <div className={orderFormStyles.subtotal}>
+        {/* <div className={orderFormStyles.subtotal}>
           <p>Subtotal</p>
           <p>${cartTotal}</p>
         </div>
-        <hr/>
+        <hr/> */}
         {/* <div className={orderFormStyles.shipping}>
           <div>
             <p>Shipping</p>
@@ -243,14 +251,14 @@ export default function OrderForm() {
           </div>
           {fastShipping === 'free' ? <p>Free</p> : <p>20.00</p>}
         </div> */}
-        <hr/>
+        {/* <hr/>
         {cartTotal && 
           <div className={orderFormStyles.price}>
             <p>Total due</p>
-            {/* <p>${fastShipping === 'free' ? (cartTotal).toFixed(2) : (cartTotal + 20.00).toFixed(2)}</p> */}
+            <p>${fastShipping === 'free' ? (cartTotal).toFixed(2) : (cartTotal + 20.00).toFixed(2)}</p>
             <p>{cartTotal}</p>
           </div>
-        }
+        } */}
       </div>
       <hr/>
       {/* <form className={orderFormStyles.form} onSubmit={handleSubmit}>
@@ -403,6 +411,11 @@ export default function OrderForm() {
         </fieldset>
         <button>Pay</button>
       </form> */}
+      {/* <AddressElement options={{mode: 'shipping'}}/> */}
+      <PaymentElement className={orderFormStyles.payment}/>
+      <form>
+
+      </form>
       {DisplayModal && <UpdateQuantityModal productId={productId} setDisplayModal={setDisplayModal} productQuantity={productQuantity}/>}
     </div>
   )

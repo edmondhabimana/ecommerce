@@ -115,8 +115,15 @@ hr {
   justify-content: space-between;
 }
 
+/* PAYMENT */
+.payment {
+  margin-top: 140px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* FORM */
-.form {
+/* .form {
   max-width: 400px;
 }
 
@@ -136,10 +143,9 @@ hr {
   box-shadow: 0 0 1px 3px #0075d45d;
   color: black;
   z-index: 3;
-  /* border-color: #cfcfcf; */
-}
+} */
 
-.form .email input,
+/* .form .email input,
 .card-num,
 .date,
 .cvc,
@@ -152,9 +158,9 @@ hr {
 .states {
   padding-left: 5px;
   height: 38px;
-}
+} */
 
-.gray-border {
+/* .gray-border {
   border: 1px solid #cfcfcf;
 }
 
@@ -172,9 +178,9 @@ hr {
 .form p:first-child {
   font-size: 18px;
   margin-bottom: 15px;
-}
+} */
 
-.email {
+/* .email {
   border: none;
   font-size: 14px;
   position: relative;
@@ -195,17 +201,17 @@ hr {
   right: 10px;
   top: 35px;
   z-index: 10;
-}
+} */
 
 /* SHIPPING METHOD */
 
-.shipping-method {
+/* .shipping-method {
   border: none;
   margin-bottom: 20px;
   margin-top: 20px;
-}
+} */
 
-.shipping-method .shipping-title {
+/* .shipping-method .shipping-title {
   display: inline-block;
   margin-bottom: 5px;
   font-size: 14px;
@@ -223,9 +229,9 @@ hr {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
+} */
 
-.free div label {
+/* .free div label {
   margin-left: 10px;
 }
 
@@ -242,9 +248,9 @@ hr {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
+} */
 
-.fast div,
+/* .fast div,
 .fast div div:last-child {
   display: flex;
 }
@@ -257,11 +263,11 @@ hr {
 .fast .business {
   color: #a7a7a7;
   font-size: 12px;
-}
+} */
 
 /* CARD INFORMATION */
 
-.card-info {
+/* .card-info {
   border: none;
   position: relative;
 }
@@ -283,9 +289,9 @@ hr {
   grid-column: 1/3;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-}
+} */
 
-.visa {
+/* .visa {
   position: absolute;
   right: 35px;
   top: 35px;
@@ -297,9 +303,9 @@ hr {
   right: 10px;
   top: 35px;
   font-size: 20px;
-}
+} */
 
-.credit {
+/* .credit {
   position: absolute;
   right: 10px;
   top: 73px;
@@ -319,183 +325,183 @@ hr {
   position: absolute;
   right: 5px;
   top: 70px;
-}
+} */
 
-.date {
+/* .date {
   border-bottom-left-radius: 5px;
 }
 
 .date-gray-border{
   border: 1px solid #cfcfcf;
   margin-top: -1px;
-}
+} */
 
-.date-error,
+/* .date-error,
 .cvc-error {
   border: 1px solid red;
   margin-top: -1px;
   color: red;
   z-index: 2;
-}
+} */
 
-.cvc {
+/* .cvc {
   border-bottom-right-radius: 5px;
-}
+} */
 
-.cvc-gray-border {
+/* .cvc-gray-border {
   border: 1px solid #cfcfcf;
   margin-top: -1px;
   margin-left: -1px;
-}
+} */
 
-.cvc-error {
+/* .cvc-error {
   margin-left: -1px;
-}
+} */
 
-.card-number-faCircleExclamation {
+/* .card-number-faCircleExclamation {
   position: absolute;
   right: 10px;
   top:35px;
   z-index: 10;
   color: red;
-}
+} */
 
-.date-faCircleExclamation {
+/* .date-faCircleExclamation {
   position: absolute;
   left: 155px;
   top:74px;
   z-index: 10;
   color: red;
-}
+} */
 
-.cvc-faCircleExclamation {
+/* .cvc-faCircleExclamation {
   position: absolute;
   right: 10px;
   top:74px;
   z-index: 10;
   color: red;
-}
+} */
 
 /* CARDHOLDER NAME */
 
-.card-name {
+/* .card-name {
   border: none;
   margin-top: 20px;
 
   display: flex;
   flex-direction: column;
-}
+} */
 
-.card-name label {
+/* .card-name label {
   display: inline-block;
   margin-bottom: 5px;
   font-size: 14px;
-}
+} */
 
-.error-label{
+/* .error-label{
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
+} */
 
-.card-name-error {
+/* .card-name-error {
   color: red;
   font-size: 11px;
-}
+} */
 
-.card-name input {
+/* .card-name input {
   border-radius: 5px;
   box-shadow: 0 1px 1px 1px #f0f0f0;
-}
+} */
 
 /* BILLING ADDRESS */
-.billing {
+/* .billing {
   border: none;
   margin-top: 20px;
   position: relative;
-}
+} */
 
-.billing label {
+/* .billing label {
   display: inline-block;
   margin-bottom: 5px;
   font-size: 14px;
-}
+} */
 
-.billing .billing-info {
+/* .billing .billing-info {
   box-shadow: 0 1px 1px 1px #f0f0f0;
   border-radius: 5px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-}
+} */
 
-.countries,
+/* .countries,
 .address-1,
 .address-2,
 .states {
   grid-column: 1/3;
-}
+} */
 
-.countries {
+/* .countries {
   border: 1px solid #cfcfcf;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-}
+} */
 
-.address-1 {
+/* .address-1 {
   margin-top: -1px;
-}
+} */
 
-.address-1-faCircleExclamation {
+/* .address-1-faCircleExclamation {
   position: absolute;
   right: 10px;
   top:74px;
   z-index: 10;
   color: red;
-}
+} */
 
-.address-2 {
+/* .address-2 {
   border: 1px solid #cfcfcf;
   margin-top: -1px;
-}
+} */
 
-.address-2-faCircleExclamation {
+/* .address-2-faCircleExclamation {
   position: absolute;
   right: 10px;
   top:110px;
   z-index: 10;
   color: red;
-}
+} */
 
-.city {
+/* .city {
   margin-top: -1px;
-}
+} */
 
-.city-faCircleExclamation {
+/* .city-faCircleExclamation {
   position: absolute;
   left: 150px;
   top:147px;
   z-index: 10;
   color: red;
-}
+} */
 
-.zip {
+/* .zip {
   margin-top: -1px;
-}
+} */
 
-.zip-faCircleExclamation {
+/* .zip-faCircleExclamation {
   position: absolute;
   right: 10px;
   top:147px;
   z-index: 10;
   color: red;
-}
+} */
 
-.states {
+/* .states {
   border: 1px solid #cfcfcf;
   margin-top: -1px;
-}
+} */
 
-.form button {
+/* .form button {
   width: 100%;
   font-size: 16px;
   padding-top: 10px;
@@ -506,4 +512,4 @@ hr {
   color: white;
   border: none;
   border-radius: 5px;
-}
+} */
