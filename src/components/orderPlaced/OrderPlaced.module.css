@@ -91,7 +91,7 @@
   align-items: center;
 }
 
-button {
+.continue-shopping {
   align-self: center;
   border: none;
   background-color: white;
@@ -103,18 +103,12 @@ button {
   align-items: center;
 }
 
-button:hover {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  /* box-shadow: 3px 5px 10px rgb(210, 210, 210); */
-}
-
 .arrow {
   margin-left: 6px;
   font-size: 20px;
 }
 
-button:hover > .arrow  {
+.continue-shopping:hover > .arrow  {
   margin-left: 12px;
   margin-right: -12px;
 }

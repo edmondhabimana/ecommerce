@@ -19,12 +19,8 @@ import { faArrowLeft,
          faAngleDown,
          faCreditCard 
         } from '@fortawesome/pro-solid-svg-icons';
-// import { AddressElement, CardNumberElement, PaymentElement } from '@stripe/react-stripe-js';
-import { CardNumberElement } from '@stripe/react-stripe-js';
-import { AddressElement } from '@stripe/react-stripe-js';
-import { PaymentElement } from '@stripe/react-stripe-js';
-import { CardElement } from '@stripe/react-stripe-js';
-import { useEffect } from 'react';
+import PaymentForm from '../paymentForm/PaymentForm';
+
 // import { faCcMastercard, faCcVisa } from '@fortawesome/free-brands-svg-icons';
 // import { faCircleExclamation } from '@fortawesome/pro-regular-svg-icons';
 // import { useReducer } from 'react';
@@ -412,10 +408,7 @@ export default function OrderForm() {
         <button>Pay</button>
       </form> */}
       {/* <AddressElement options={{mode: 'shipping'}}/> */}
-      <PaymentElement className={orderFormStyles.payment}/>
-      <form>
-
-      </form>
+      <PaymentForm/>
       {DisplayModal && <UpdateQuantityModal productId={productId} setDisplayModal={setDisplayModal} productQuantity={productQuantity}/>}
     </div>
   )

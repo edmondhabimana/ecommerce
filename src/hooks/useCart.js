@@ -9,8 +9,7 @@ export function useCart() {
   const[totalQuantity, setTotalQuantity] = useState(null)
   const[cartTotal, setCartTotal] = useState(null)
   const[successMessage, setSuccessMessage] = useState([])
-  // const SecondsRemaindingRef = useRef(0)
-  // console.log(successMessage);
+
 
   const[error, setError] = useState(null)
 
@@ -18,10 +17,8 @@ export function useCart() {
 
   const ref = projectFirestore.collection('cart')
 
-  // SecondsRemaindingRef.current = successMessage.length * 2
 
   const deleteSuccesMessage = () => {
-    // SecondsRemaindingRef.current--
     setSuccessMessage((curr) => curr.slice(0, curr.length - 1))
   }
 
@@ -85,6 +82,15 @@ export function useCart() {
     ref.doc(id).delete()
   }
 
+  //Not recommended
+  const removeAllItems = () => {
+    ref.get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        doc.ref.delete()
+      })
+    })
+  }
+
   const getItemQuantity = (name) => {
     //we grab the document/product quantity
     ref.doc(name).get().then((item) => {
@@ -112,15 +118,15 @@ export function useCart() {
   useEffect(() => {
 
     let itemTotal = 0
-    let totalItemPrice = 0
+    let priceOfAllItems = 0
     //we go through the entire collection of documents/products and add up all the quantity together
     collection.forEach(function(item) {
       itemTotal = itemTotal + item.quantity
-      totalItemPrice = totalItemPrice + item.totalPrice
+      priceOfAllItems = priceOfAllItems + item.totalPrice
     })
 
     setTotalQuantity(itemTotal)
-    setCartTotal(totalItemPrice)
+    setCartTotal(priceOfAllItems)
 
   }, [collection])
 
@@ -142,6 +148,7 @@ export function useCart() {
     successMessage,
     deleteSuccesMessage,
     collection,
-    updateFromModal
+    updateFromModal,
+    removeAllItems
   }
 }
