@@ -36,7 +36,7 @@ export default function SideBar({displayCart, handleCartDisplay}) {
           </div>
           <div className={sideBarStyles.total}>
             <div>
-              <p>subtotal:</p>
+              <p>Total:</p>
               <p>${cartTotal}</p>
             </div>
             <button

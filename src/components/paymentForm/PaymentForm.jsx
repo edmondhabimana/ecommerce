@@ -57,7 +57,7 @@ export default function PaymentForm() {
     });
 
 
-    console.log(paymentResults);
+    // console.log(paymentResults);
 
     // if (error) {
     //   // This point will only be reached if there is an immediate error when

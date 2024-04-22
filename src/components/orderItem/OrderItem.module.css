@@ -49,3 +49,16 @@
   margin-left: 20px;
   cursor: pointer;
 }
+
+@media (max-width: 540px) {
+  .container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .price {
+    align-self: flex-start;
+    text-align: left;
+  }
+}

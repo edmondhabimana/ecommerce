@@ -506,3 +506,49 @@ hr {
   border: none;
   border-radius: 5px;
 } */
+
+@media (max-width: 950px) {
+  .order-form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cart-info {
+    min-height: 50vh;
+    width: 100%;
+    box-shadow: none;
+    /* background-color: red; */
+  }
+
+  hr {
+    display: none;
+  }
+}
+
+@media (max-width: 540px) {
+  .order-form {
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 370px) {
+  .cart-info {
+    padding-right: 40px;
+    padding-left: 40px;
+    padding-bottom: 40px;
+  }
+}
+
+@media (max-width: 370px) {
+  .cart-info {
+    padding-right: 30px;
+    padding-left: 30px;
+    padding-bottom: 30px;
+  }
+}
+
+@media (max-width: 320px) {
+  .order-form {
+    min-width: 320px;
+  }
+}

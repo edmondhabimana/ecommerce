@@ -52,3 +52,9 @@
 .submit:hover {
   color: white;
 }
+
+@media (max-width: 950px) {
+  .payment{
+    margin-top: 5px;
+  }
+}
