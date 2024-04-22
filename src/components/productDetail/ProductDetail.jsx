@@ -1,5 +1,6 @@
 // import data from "../../data"
 import productDetailStyles from './productDetail.module.css'
+import { useNavigate } from 'react-router-dom'
 import SmallerImages from '../smallerImages/SmallerImages'
 import Recommanded from '../recommended/Recommended'
 import SideBar from '../sideBar/SideBar'
@@ -14,9 +15,9 @@ import { useCart } from '../../hooks/useCart'
 export default function ProductDetail() {
   const [selectedId, setSelectedId] = useState(0)
   const [itemCount, setItemCount] = useState(1)
-  console.log(itemCount);
 
   const { productName } = useParams()
+  const navigate = useNavigate()
   const [displayCart, handleCartDisplay] = useOutletContext()
   const { data } = useDocument('products', productName)
   const { collection } = useCollection('products')
@@ -36,6 +37,10 @@ export default function ProductDetail() {
   function decreaseQuantity() {
     if(itemCount == 1) return
     setItemCount((itemCount) => itemCount - 1)
+  }
+
+  const handleNavigation = () => {
+    navigate('/order')
   }
 
   function handleAddToCart() {
@@ -92,7 +97,10 @@ export default function ProductDetail() {
                   className={productDetailStyles['white-button']}
                   onClick={() => handleAddToCart()}
                 >Add to Cart</button>
-                <button className={productDetailStyles['red-button']}>Buy Now</button>
+                <button 
+                  className={productDetailStyles['red-button']}
+                  onClick={() => handleNavigation()}
+                >Buy Now</button>
               </div>
             </div>
           </div>
