@@ -106,7 +106,9 @@ export default function ProductDetail() {
           </div>
           <div className={productDetailStyles.recommand}>
             <p>You may also like</p>
-            <div className={productDetailStyles['animation-div']}>
+            <div 
+              className={productDetailStyles['animation-div']}
+            >  
               {collection.map((collectionItem, index) => (
                 <Recommanded key={index} collectionItem={collectionItem}/>
               ))}
