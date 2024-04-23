@@ -1,0 +1,19 @@
+{
+	"geolocation": {
+		"data": {
+			"city": "Tucson",
+			"country": {
+				"code": "US",
+				"name": "United States"
+			},
+			"subdivision": {
+				"code": "AZ",
+				"name": "Arizona"
+			},
+			"timezone": "America/Phoenix",
+			"latitude": 32.213,
+			"longitude": -110.8279
+		},
+		"timestamp": 1713746643729
+	}
+}
