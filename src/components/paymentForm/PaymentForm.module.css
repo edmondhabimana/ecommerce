@@ -1,0 +1,60 @@
+.container {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.payment{
+  margin-top: 140px;
+}
+
+.email-container {
+  margin-bottom: 30px;
+}
+
+.email {
+  border-radius: 5px;
+  padding-left: 5px;
+  height: 38px;
+  border: 1px solid #cfcfcf;
+  width: 100%;
+  box-shadow: 0 1px 1px 1px #f0f0f0;
+}
+
+.email-label {
+  color: #595959;
+  font-size: 15px;
+}
+
+.email:focus {
+  outline: none !important;
+  border: 1px solid #0074d4;
+  box-shadow: 0 0 1px 3px #0075d45d;
+  color: black;
+  z-index: 3;
+}
+
+.submit {
+  background-color: #33B3FF;
+  width: 100%;
+  color: #ffffff8a;
+  margin-top: 30px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-radius: 5px;
+  transition: all .4s ease-in-out;
+  cursor: pointer;
+  border: none;
+  
+  display: flex;
+  justify-content: center;
+}
+
+.submit:hover {
+  color: white;
+}
+
+@media (max-width: 950px) {
+  .payment{
+    margin-top: 5px;
+  }
+}
