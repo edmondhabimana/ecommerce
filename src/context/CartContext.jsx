@@ -75,6 +75,14 @@ function CartProvider({children}) {
     ref.doc(id).delete()
   }
 
+  const clearCart = () => {
+    ref.get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        doc.ref.delete()
+      })
+    })
+  }
+
   const increaseQuantity = (id, _price) => {
     ref.doc(id).get().then((item) => {
       if(item.exists){
@@ -127,7 +135,8 @@ function CartProvider({children}) {
         deleteSuccessMessage,
         cartCollection,
         increaseQuantity,
-        decreaseQuantity
+        decreaseQuantity,
+        clearCart
       }}
     >
       {children}

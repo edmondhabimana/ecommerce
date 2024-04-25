@@ -1,7 +1,8 @@
 import orderPlacedStyles from './OrderPlaced.module.css'
 import { useNavigate } from 'react-router-dom';
-import { useCollection } from "../../hooks/useCollection"
-import { useCart } from '../../hooks/useCart';
+// import { useCollection } from "../../hooks/useCollection"
+// import { useCart } from '../../hooks/useCart';
+import { useCart } from '../../context/cartContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightLong } from '@fortawesome/sharp-light-svg-icons';
 import { faCircleCheck } from '@fortawesome/pro-solid-svg-icons';
@@ -10,12 +11,11 @@ import { useEffect } from 'react';
 
 export default function OrderPlaced() {
   const [orderNumber, setOrderNumber] = useState(0)
-  const { collection } = useCollection('cart')
-  const { removeAllItems } = useCart()
+  const { cartCollection, clearCart } = useCart()
   const navigation = useNavigate()
 
   function handleNavigation() {
-    removeAllItems()
+    clearCart()
     navigation('/')
   }
 
@@ -36,7 +36,7 @@ export default function OrderPlaced() {
         </div>
         <p className={orderPlacedStyles['order-id']}>order# BBY01-{orderNumber}</p>
         <div className={orderPlacedStyles['order-items']}>
-          {collection.map((element, index) => (
+          {cartCollection.map((element, index) => (
             <div key={index}>
               <hr/>
                 <div className={orderPlacedStyles['order-item']}>
