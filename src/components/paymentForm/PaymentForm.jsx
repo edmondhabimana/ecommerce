@@ -1,6 +1,6 @@
 import paymentFormStyles from './PaymentForm.module.css'
 import { useState } from 'react';
-import { useCart } from '../../hooks/useCart';
+import { useCart } from '../../context/CartContext';
 import {
   PaymentElement,
   Elements,

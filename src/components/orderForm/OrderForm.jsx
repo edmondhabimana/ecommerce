@@ -10,8 +10,7 @@ import OrderItem from '../orderItem/OrderItem';
 // import SelectState from '../selectState/selectState';
 // import Error from '../error/error';
 import UpdateQuantityModal from '../updateQuantityModal/UpdateQuantityModal';
-import { useCollection } from '../../hooks/useCollection'
-import { useCart } from '../../hooks/useCart';
+import { useCart } from '../../context/CartContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, 
          faStore, 
@@ -159,12 +158,11 @@ export default function OrderForm() {
   // console.log(clientSecretKey);
 
   //state for form
-  const { collection } = useCollection('cart')
 
-  const { cartTotal, deleteItem } = useCart()
+  const { cartTotal, deleteItem, cartCollection } = useCart()
   const navigation = useNavigate()
 
-  const displayItems = isCollapsed ? collection.slice(0, 4) : collection
+  const displayItems = isCollapsed ? cartCollection.slice(0, 4) : cartCollection
 
   function handleNavigation() {
     navigation(`/`)
@@ -224,12 +222,12 @@ export default function OrderForm() {
             />
           ))}
         </div>
-        {collection.length > 4 && 
+        {cartCollection.length > 4 && 
           <button 
             onClick={() => setIsCollapsed((isCollapsed) => !isCollapsed)}
             className={orderFormStyles.collapse}
           >
-            {isCollapsed ? <span>{`Show all ${collection.length} items`}</span> : <span>Show less</span>}
+            {isCollapsed ? <span>{`Show all ${cartCollection.length} items`}</span> : <span>Show less</span>}
             {isCollapsed ? 
               <FontAwesomeIcon icon={faAngleDown} className={orderFormStyles.icon}/> : 
               <FontAwesomeIcon icon={faAngleUp} className={orderFormStyles.icon}/> }
