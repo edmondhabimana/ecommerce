@@ -2,7 +2,7 @@ import orderItemStyles from './OrderItem.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/pro-solid-svg-icons'
 
-export default function OrderItem({item, setDisplayModal, setProductId, setProductQuantity, deleteItem}) {
+export default function OrderItem({item, setDisplayModal, setProductId, setProductQuantity, deleteItem, dispatch}) {
   const {id, name, quantity, image, totalPrice, unitPrice} = item
 
   return (
@@ -36,7 +36,7 @@ export default function OrderItem({item, setDisplayModal, setProductId, setProdu
       <FontAwesomeIcon 
         icon={faTrash} 
         className={orderItemStyles.trash}
-        onClick={() => deleteItem(id)}
+        onClick={() => dispatch(deleteItem(id))}
       />
     </div>
   )

@@ -1,6 +1,7 @@
 import orderFormStyles from './OrderForm.module.css'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux'
 // import Payment from 'payment';
 // import { formatCreditCardNumber,
 //          formatCVC,
@@ -10,7 +11,7 @@ import OrderItem from '../orderItem/OrderItem';
 // import SelectState from '../selectState/selectState';
 // import Error from '../error/error';
 import UpdateQuantityModal from '../updateQuantityModal/UpdateQuantityModal';
-import { useCart } from '../../context/CartContext';
+// import { useCart } from '../../context/CartContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, 
          faStore, 
@@ -19,6 +20,7 @@ import { faArrowLeft,
          faCreditCard 
         } from '@fortawesome/pro-solid-svg-icons';
 import PaymentForm from '../paymentForm/PaymentForm';
+import { getTotalCartPrice, getCart, deleteItem } from '../../Cart/cartSlice';
 
 // import { faCcMastercard, faCcVisa } from '@fortawesome/free-brands-svg-icons';
 // import { faCircleExclamation } from '@fortawesome/pro-regular-svg-icons';
@@ -159,10 +161,13 @@ export default function OrderForm() {
 
   //state for form
 
-  const { cartTotal, deleteItem, cartCollection } = useCart()
+  // const { cartTotal, deleteItem, cartCollection } = useCart()
   const navigation = useNavigate()
+  const dispatch = useDispatch()
+  const totalCartPrice = useSelector(getTotalCartPrice)
+  const cart = useSelector(getCart)
 
-  const displayItems = isCollapsed ? cartCollection.slice(0, 4) : cartCollection
+  const displayItems = isCollapsed ? cart.slice(0, 4) : cart
 
   function handleNavigation() {
     navigation(`/`)
@@ -209,8 +214,9 @@ export default function OrderForm() {
         </div>
         <div className={orderFormStyles['total-pay']}>
           <p>Total Amount</p>
-          <p>${cartTotal}</p>
+          <p>${totalCartPrice}</p>
         </div>
+        {/* In here we set product id */}
         <div className={orderFormStyles.items}>
           {displayItems.map((item) => (
             <OrderItem 
@@ -218,16 +224,17 @@ export default function OrderForm() {
               setDisplayModal={setDisplayModal}
               setProductId={setProductId}
               setProductQuantity={setProductQuantity}
+              dispatch={dispatch}
               deleteItem={deleteItem}
             />
           ))}
         </div>
-        {cartCollection.length > 4 && 
+        {cart.length > 4 && 
           <button 
             onClick={() => setIsCollapsed((isCollapsed) => !isCollapsed)}
             className={orderFormStyles.collapse}
           >
-            {isCollapsed ? <span>{`Show all ${cartCollection.length} items`}</span> : <span>Show less</span>}
+            {isCollapsed ? <span>{`Show all ${cart.length} items`}</span> : <span>Show less</span>}
             {isCollapsed ? 
               <FontAwesomeIcon icon={faAngleDown} className={orderFormStyles.icon}/> : 
               <FontAwesomeIcon icon={faAngleUp} className={orderFormStyles.icon}/> }

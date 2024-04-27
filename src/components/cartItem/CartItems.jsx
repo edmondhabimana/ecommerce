@@ -9,7 +9,7 @@ import { increaseItemQuantity, decreaseItemQuantity, deleteItem } from '../../Ca
 export default function CartItem({ item }) {
   // console.log(item);
   const dispatch = useDispatch()
-  const { image, name, totalPrice, quantity, unitPrice } = item
+  const { image, name, totalPrice, quantity } = item
   // const { increaseQuantity, decreaseQuantity, deleteItem } = useCart()
   // console.log(item);
 

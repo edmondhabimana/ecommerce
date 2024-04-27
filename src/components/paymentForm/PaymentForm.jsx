@@ -1,6 +1,7 @@
 import paymentFormStyles from './PaymentForm.module.css'
 import { useState } from 'react';
-import { useCart } from '../../context/CartContext';
+import { useSelector } from 'react-redux'
+import { getTotalCartPrice } from '../../Cart/cartSlice';
 import {
   PaymentElement,
   Elements,
@@ -12,7 +13,7 @@ export default function PaymentForm() {
 
   const stripe = useStripe();
   const elements = useElements();
-  const { cartTotal } = useCart()
+  const totalCartPrice = useSelector(getTotalCartPrice)
 
   const [errorMessage, setErrorMessage] = useState('');
   const [emailInput, setEmailInput] = useState('');
@@ -38,7 +39,7 @@ export default function PaymentForm() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ amount: cartTotal * 100 }),
+      body: JSON.stringify({ amount: totalCartPrice * 100 }),
     }).then((res) => res.json());
 
     // const {
