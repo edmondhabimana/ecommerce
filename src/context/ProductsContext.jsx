@@ -36,9 +36,9 @@ function ProductsProvider({children}) {
   }, [])
   // console.log(collection);
   // useEffect(() => { 
-    const getProduct = (collection = "products", id) => {
+    const getProduct = (id) => {
       console.log(1);
-      projectFirestore.collection(collection).doc(id).get().then((doc) => {
+      projectFirestore.collection("products").doc(id).get().then((doc) => {
         if(doc.exists) {
           // console.log('Document data:', doc.data());
           dispatch({ type: "document", payload: {...doc.data(), id: doc.id}})

@@ -1,5 +1,6 @@
 // import data from "../../data"
 import productDetailStyles from './productDetail.module.css'
+import { useDispatch } from 'react-redux'
 import SmallerImages from '../smallerImages/SmallerImages'
 import Recommanded from '../recommended/Recommended'
 import SideBar from '../sideBar/SideBar'
@@ -8,7 +9,8 @@ import SuccessMessage from '../successMessage/SuccessMessage'
 import { useState } from 'react'
 import { useParams, useOutletContext } from "react-router-dom"
 import { useProducts } from '../../context/ProductsContext'
-import { useCart } from '../../context/cartContext'
+import { addItem } from '../../Cart/cartSlice'
+// import { useCart } from '../../context/cartContext'
 import { useMemo } from 'react'
 
 export default function ProductDetail() {
@@ -17,7 +19,9 @@ export default function ProductDetail() {
   const { productName } = useParams()
   const [displayCart, handleCartDisplay] = useOutletContext()
   const { collection, product, getProduct } = useProducts()
-  const { addToCart } = useCart()
+  console.log(product);
+  const dispatch = useDispatch()
+  // const { addToCart } = useCart()
   const { details, images, name, price} = product
 
   //we use useMemo to prevent getProduct from infinite re-render
@@ -40,13 +44,15 @@ export default function ProductDetail() {
 
   function handleAddToCart() {
     // console.log(cart);
-    addToCart({
+    const newItem = {
       image: images[0],
       name,
       unitPrice: price,
       totalPrice: price * itemCount,
       quantity: itemCount
-    })
+    }
+
+    dispatch(addItem(newItem))
 
     setItemCount(1)
   }

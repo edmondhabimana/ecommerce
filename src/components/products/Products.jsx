@@ -9,7 +9,7 @@ import { faSpinnerScale } from '@fortawesome/pro-thin-svg-icons'
 export default function Products () {
   const { collection } = useProducts()
   const [displayCart, handleCartDisplay] = useOutletContext()
-  console.log(displayCart);
+  // console.log(displayCart);
 
   return(
     <>
