@@ -19,7 +19,7 @@ export default function ProductDetail() {
   const { productName } = useParams()
   const [displayCart, handleCartDisplay] = useOutletContext()
   const { collection, product, getProduct } = useProducts()
-  console.log(product);
+  // console.log(product);
   const dispatch = useDispatch()
   // const { addToCart } = useCart()
   const { details, images, name, price} = product
@@ -46,6 +46,7 @@ export default function ProductDetail() {
     // console.log(cart);
     const newItem = {
       image: images[0],
+      id: name,
       name,
       unitPrice: price,
       totalPrice: price * itemCount,

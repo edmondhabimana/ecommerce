@@ -1,13 +1,16 @@
 import cartItemStyles from './CartItems.module.css'
 import Button from '../button/Button'
-import { useCart } from '../../context/cartContext';
+// import { useCart } from '../../context/cartContext';
+import { useDispatch } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/sharp-solid-svg-icons';
+import { increaseItemQuantity, decreaseItemQuantity, deleteItem } from '../../Cart/cartSlice';
 
 export default function CartItem({ item }) {
   // console.log(item);
+  const dispatch = useDispatch()
   const { image, name, totalPrice, quantity, unitPrice } = item
-  const { increaseQuantity, decreaseQuantity, deleteItem } = useCart()
+  // const { increaseQuantity, decreaseQuantity, deleteItem } = useCart()
   // console.log(item);
 
   return(
@@ -18,11 +21,11 @@ export default function CartItem({ item }) {
       <div className={cartItemStyles['container']}>
         <p>{name}</p>
         <Button 
-          originalPrice={unitPrice}
           quantity={quantity} 
           name={name}
-          increaseQuantity={increaseQuantity} 
-          decreaseQuantity={decreaseQuantity}
+          dispatch={dispatch}
+          increaseQuantity={increaseItemQuantity} 
+          decreaseQuantity={decreaseItemQuantity}
         />
       </div>
       <div className={cartItemStyles['container']}>
@@ -30,7 +33,7 @@ export default function CartItem({ item }) {
         <FontAwesomeIcon 
           icon={faTrash} 
           className={cartItemStyles.trash}
-          onClick={()=> deleteItem(name)}
+          onClick={()=> dispatch(deleteItem(name))}
         />
       </div>
     </div>

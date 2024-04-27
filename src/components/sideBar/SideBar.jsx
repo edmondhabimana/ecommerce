@@ -1,14 +1,22 @@
 import sideBarStyles from './SideBar.module.css'
 import CartItems from '../cartItem/CartItems'
-import { useCart } from '../../context/cartContext'
+// import { useCart } from '../../context/cartContext'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { getTotalCartQuantity, getTotalCartPrice, getCart } from '../../Cart/cartSlice'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/pro-duotone-svg-icons'
 
 export default function SideBar({displayCart, handleCartDisplay}) {
-  const {totalQuantity, cartCollection, cartTotal} = useCart()
+  // const {totalQuantity, cartCollection, cartTotal} = useCart()
+  const totalCartQuantity = useSelector(getTotalCartQuantity)
+  const totalCartPrice = useSelector(getTotalCartPrice)
+  const cart = useSelector(getCart)
+  const navigate = useNavigate()
 
-  // getTotal()
-  // console.log(totalQuantity);
+  function handleNavigation() {
+    navigate('/order')
+  }
 
   return(
     <>
@@ -22,20 +30,20 @@ export default function SideBar({displayCart, handleCartDisplay}) {
               onClick={() => handleCartDisplay()}
             />
             <p>Your Cart</p>
-            <p>({totalQuantity} items)</p>
+            <p>({totalCartQuantity} items)</p>
           </div>
           <div className={sideBarStyles.items}>
             {/* maping through cart collection */}
-            {cartCollection.map((item, index) => (
+            {cart.map((item, index) => (
               <CartItems key={index} item={item}/>
             ))}
           </div>
           <div className={sideBarStyles.total}>
             <div>
               <p>subtotal:</p>
-              <p>${cartTotal}</p>
+              <p>${totalCartPrice}</p>
             </div>
-            <button>pay</button>
+            <button onClick={() => handleNavigation()}>pay</button>
           </div>
         </div>
         <div 

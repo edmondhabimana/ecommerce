@@ -144,6 +144,10 @@
   display: flex;
 }
 
+.animation-div:hover {
+  animation-play-state: paused;
+}
+
 .animation-div p:nth-child(2) {
   color: #324d67;
   font-size: 14px;

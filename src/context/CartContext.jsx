@@ -83,18 +83,18 @@ function CartProvider({children}) {
     })
   }
 
-  const increaseQuantity = (id, _price) => {
+  const increaseQuantity = (id) => {
     ref.doc(id).get().then((item) => {
       if(item.exists){
         ref.doc(id).update({
           quantity: item.data().quantity + 1,
-          totalPrice: item.data().totalPrice + _price
+          totalPrice: item.data().totalPrice + item.data().unitPrice
         })
       }
     })
   }
 
-  const decreaseQuantity = (id, _price) => {
+  const decreaseQuantity = (id) => {
     ref.doc(id).get().then((item) => {
       if(item.exists){
         if(item.data().quantity <= 1){
@@ -103,7 +103,7 @@ function CartProvider({children}) {
         }
         ref.doc(id).update({
           quantity: item.data().quantity - 1,
-          totalPrice: item.data().totalPrice - _price
+          totalPrice: item.data().totalPrice - item.data().unitPrice
         })
       }
     })
