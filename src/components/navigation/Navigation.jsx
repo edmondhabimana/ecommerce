@@ -2,10 +2,11 @@ import navigationStyles from './Navigation.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping } from '@fortawesome/pro-light-svg-icons'
 import { Link } from 'react-router-dom'
-import { useCart } from '../../context/cartContext'
+import { useSelector } from 'react-redux'
+import { getTotalCartQuantity } from '../../Cart/cartSlice'
 
 export default function Navigation({handleCartDisplay}) {
-  const { totalQuantity } = useCart()
+  const totalCartQuantity = useSelector(getTotalCartQuantity)
 
   return(
     <div className={navigationStyles['navigation-container']}>
@@ -14,7 +15,7 @@ export default function Navigation({handleCartDisplay}) {
       </div>
       <div onClick={() => handleCartDisplay()}>
         <FontAwesomeIcon icon={faCartShopping} className={navigationStyles['cart-logo']}/>
-        <div className={navigationStyles['item-count']}><p>{totalQuantity}</p></div>
+        <div className={navigationStyles['item-count']}><p>{totalCartQuantity}</p></div>
       </div>
     </div>
   )
