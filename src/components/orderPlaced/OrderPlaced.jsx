@@ -29,34 +29,21 @@ export default function OrderPlaced() {
 
   return(
     <div className={orderPlacedStyles['order-container']}>
-      <div className={orderPlacedStyles['order-details']}>
-        <div className={orderPlacedStyles['order-placed']}>
-          <FontAwesomeIcon icon={faCircleCheck} className={orderPlacedStyles['order-check']}/>
-          <p>Your order has been placed</p>
+      <div className={orderPlacedStyles['overlay']}>
+        <div className={orderPlacedStyles['order-details']}>
+          <div className={orderPlacedStyles['order-placed']}>
+            <FontAwesomeIcon icon={faCircleCheck} className={orderPlacedStyles['order-check']}/>
+            <p>Your order has been placed</p>
+          </div>
+          <p className={orderPlacedStyles['order-id']}>order# BBY01-{orderNumber}</p>
+          <button 
+            className={orderPlacedStyles['continue-shopping']}
+            onClick={() => handleNavigation()}
+          >
+            continue shopping
+            <FontAwesomeIcon icon={faArrowRightLong} className={orderPlacedStyles.arrow}/>
+          </button>
         </div>
-        <p className={orderPlacedStyles['order-id']}>order# BBY01-{orderNumber}</p>
-        <div className={orderPlacedStyles['order-items']}>
-          {collection.map((element, index) => (
-            <div key={index}>
-              <hr/>
-                <div className={orderPlacedStyles['order-item']}>
-                  <div>
-                    <p className={orderPlacedStyles.quantity}>{element.quantity}<span>x</span></p>
-                    <p className={orderPlacedStyles.name}>{element.name}</p>
-                  </div>
-                  <p className={orderPlacedStyles.totalPrice}>${element.totalPrice}</p>
-                </div>
-              <hr className={orderPlacedStyles['negative-margin']}/>
-            </div>
-          ))}
-        </div>
-        <button 
-          className={orderPlacedStyles['continue-shopping']}
-          onClick={() => handleNavigation()}
-        >
-          continue shopping
-          <FontAwesomeIcon icon={faArrowRightLong} className={orderPlacedStyles.arrow}/>
-        </button>
       </div>
     </div>
   )

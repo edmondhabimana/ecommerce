@@ -1,14 +1,14 @@
 import orderFormStyles from './OrderForm.module.css'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Payment from 'payment';
-import { formatCreditCardNumber,
-         formatCVC,
-         formatExpirationDate } from '../../utils';  
+// import Payment from 'payment';
+// import { formatCreditCardNumber,
+//          formatCVC,
+//          formatExpirationDate } from '../../utils';  
 import OrderItem from '../orderItem/OrderItem';
-import SelectCountries from '../selectCountry/SelectCountry';
-import SelectState from '../selectState/selectState';
-import Error from '../error/error';
+// import SelectCountries from '../selectCountry/SelectCountry';
+// import SelectState from '../selectState/selectState';
+// import Error from '../error/error';
 import UpdateQuantityModal from '../updateQuantityModal/UpdateQuantityModal';
 import { useCollection } from '../../hooks/useCollection'
 import { useCart } from '../../hooks/useCart';

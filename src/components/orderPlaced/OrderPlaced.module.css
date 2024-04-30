@@ -1,20 +1,28 @@
 .order-container {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 12.5vh;
-  padding-left: 60px;
-  padding-right: 60px;
-  /* transform: translate(-50%, -50%); */
-  width: 50%;
+  height: 100vh;
+}
 
-  /* background-color: red; */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #8080801d;
+  backdrop-filter: blur(4px);
 }
 
 .order-details {
   display: flex;
   flex-direction: column;
-  /* gap: 30px; */
-  /* align-items: center; */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  box-shadow: 1px 1px 10px 4px #8080801d;
+  min-width:300px;
 }
 
 .order-placed {
@@ -42,53 +50,6 @@
   padding: 5px 10px;
   border-radius: 15px;
   margin-bottom: 20px;
-}
-
-.order-items {
-  padding-left: 20px;
-  padding-right: 20px;
-  box-shadow: 3px 5px 10px rgb(210, 210, 210);
-}
-
-.negative-margin {
-  margin: -1px;
-}
-
-/* .order-id {
-  margin-bottom: 50px;
-
-} */
-
-.order-item {
-  padding-top: 15px;
-  padding-bottom: 15px;
-  display: flex;
-  /* gap: 50px; */
-  justify-content: space-between;
-}
-.order-item div {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.name {
-  font-weight: 300;
-  font-size: 14px;
-}
-
-.quantity,
-.totalPrice {
-  font-weight: 700;
-}
-
-.quantity span {
-  font-size: 12px;
-}
-
-.quantity {
-  display: flex;
-  align-items: center;
 }
 
 .continue-shopping {

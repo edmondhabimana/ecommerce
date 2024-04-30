@@ -50,9 +50,9 @@ function App() {
           <Route element={<AppLayout/>}>
             <Route index element={<MainPage/>}/>
             <Route path='product-detail/:productName' element={<ProductDetail/>}/>
+            <Route path='orderplaced' element={<OrderPlaced/>}/>
           </Route>
           <Route path='order' element={<OrderForm/>}/>
-          <Route path='orderplaced' element={<OrderPlaced/>}/>
         </Routes>
       </BrowserRouter>
     </Elements>
