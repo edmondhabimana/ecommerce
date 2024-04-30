@@ -1,13 +1,15 @@
 import paymentFormStyles from './PaymentForm.module.css'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux'
 import { getTotalCartPrice } from '../../Cart/cartSlice';
 import {
   PaymentElement,
-  Elements,
   useStripe,
   useElements,
 } from '@stripe/react-stripe-js';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/pro-duotone-svg-icons';
+
 
 export default function PaymentForm() {
 
@@ -16,7 +18,16 @@ export default function PaymentForm() {
   const totalCartPrice = useSelector(getTotalCartPrice)
 
   const [errorMessage, setErrorMessage] = useState('');
-  const [emailInput, setEmailInput] = useState('');
+  const [isProccessingPayment, setIsProccessingPayment] = useState(false);
+
+  useEffect(() => {
+    // console.log('inside useEffect 1');
+    const timerRef = setInterval(function () {
+      setErrorMessage('')
+    }, 4800)
+    return () => clearInterval(timerRef)
+
+  }, [])
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -33,6 +44,7 @@ export default function PaymentForm() {
       return;
     }
 
+    setIsProccessingPayment(true)
     // Create the PaymentIntent and obtain clientSecret from your server endpoint
     const res = await fetch('/.netlify/functions/create-payment-intent', {
       method: 'post',
@@ -46,30 +58,22 @@ export default function PaymentForm() {
     //   paymentIntent: { client_secret },
     // } = await res;
     const clientSecret = res.paymentIntent.client_secret;
-    console.log(clientSecret);
+    // console.log(clientSecret);
 
-    const paymentResults = await stripe.confirmPayment({
+    const { error } = await stripe.confirmPayment({
       //`Elements` instance that was used to create the Payment Element
       elements,
       clientSecret,
       confirmParams: {
-        return_url: `${window.location.origin}/orderplaced`,
+        return_url: `${window.location.origin}/orderPlaced`,
       },
     });
 
+    setIsProccessingPayment(false)
 
-    // console.log(paymentResults);
-
-    // if (error) {
-    //   // This point will only be reached if there is an immediate error when
-    //   // confirming the payment. Show error to your customer (for example, payment
-    //   // details incomplete)
-    //   setErrorMessage(error.message);
-    // } else {
-    //   // Your customer will be redirected to your `return_url`. For some payment
-    //   // methods like iDEAL, your customer will be redirected to an intermediate
-    //   // site first to authorize the payment, then redirected to the `return_url`.
-    // }
+    if (error) {
+      setErrorMessage(error.message);
+    }
   };
 
 
@@ -81,8 +85,11 @@ export default function PaymentForm() {
           type='submit' 
           className={paymentFormStyles.submit}
         >
-          PAY
+          { isProccessingPayment ? 
+            <FontAwesomeIcon icon={faSpinner} spinPulse /> : 
+            'PAY'}
         </button>
+        {errorMessage && <div className={paymentFormStyles['card-error']}>{errorMessage}</div>}
       </form>
     </div>
   )

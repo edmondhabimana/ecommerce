@@ -53,6 +53,11 @@
   color: white;
 }
 
+.card-error {
+  color: red;
+  font-size: 14px;
+}
+
 @media (max-width: 950px) {
   .payment{
     margin-top: 5px;
