@@ -28,3 +28,14 @@
 .cart-item .trash {
   cursor: pointer;
 }
+
+@media (max-width: 390px) {
+  .cart-item .image {
+    width: 90px;
+  }
+
+  .cart-item .container p{
+    margin-bottom: 15px;
+    font-size: 12px;
+  }
+}
