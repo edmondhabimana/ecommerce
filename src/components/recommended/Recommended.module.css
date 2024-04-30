@@ -5,3 +5,15 @@
   border-radius: 15px;
   cursor: pointer;
 }
+
+@media (max-width: 760px) {
+  .recommand-image {
+    width: 200px;
+  }
+}
+
+@media (max-width: 450px) {
+  .recommand-image {
+    width: 140px;
+  }
+}

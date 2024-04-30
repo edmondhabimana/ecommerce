@@ -10,3 +10,10 @@
   background-color: #f02d34;
   cursor: pointer;
 }
+
+@media (max-width: 400px) {
+  .smaller-images {
+    width: 19vw;
+    height: auto;
+  }
+}
