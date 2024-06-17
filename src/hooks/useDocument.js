@@ -18,7 +18,7 @@ export const useDocument = (collection, document) => {
 
     })
 
-  }, [document])
+  }, [document, collection])
   
   return { data, error}
 }
